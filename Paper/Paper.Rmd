@@ -1,0 +1,1502 @@
+---
+title: How is regional  variation in life expectancy explained?
+author: "Arvid Mikkers (https://github.com/ArvidMikkers)"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+  pdf_document:
+    number_sections: true 
+    fig_caption: true
+    includes: 
+      in_header: preamble.tex
+      link-citations: yes
+    keep_tex: no
+  fontsize: 11pt
+csl: global-ecology-and-biogeography.csl
+bibliography: profiel.bib
+urlcolor: blue
+linkcolor: 'blue'
+---
+\pagenumbering{gobble}
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'H')
+```
+
+
+ 
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message = FALSE)
+knitr::opts_chunk$set(cache = FALSE)
+
+```
+
+
+```{r, warning=FALSE, message=FALSE, hide}
+library(tidyverse) # for data manipulation and plots
+library(PerformanceAnalytics) # for correlation plots
+library(thematicmaps)# for maps
+library(corrr) # for network graphs of variables
+library(corrplot) # for correlation plot
+library(ggrepel) # for names in graphs
+library(car) # to check for multicollinearity
+library(caret) # for machine learning
+library(rpart)    # regression tree
+library(stargazer) # for regression output
+library(rpart.plot) # for plotting regression trees
+library(scatterplot3d) # for 3D graph
+library(ggeffects) # marginal effects plots
+library(cowplot) # to combine marginal effect plots
+library(knitr) # for tables
+
+```
+
+```{r}
+d1 <- read.csv2("../Datacleaning/Sourcedata/Analysis/Datafile.csv")
+map_municipal1 <- read.csv2("../Datacleaning/Sourcedata/Map/nld_municipal_map.csv", stringsAsFactors = FALSE, dec = ".")
+
+map_municipal <- map_municipal1 %>% 
+    mutate(name = replace(name, name == "De Friese Meren", "De Fryske Marren")) %>%
+    mutate(name = replace(name, name == "Groesbeek"| name == "Millingen aan de Rijn" | name == "Ubbergen", "Berg en Dal")) %>%
+  mutate(name = replace(name, name == "Bussum"| name == "Naarden" | name == "Muiden", "Gooise Meren")) %>%
+  mutate(name = replace(name, name == "Nederlek"| name == "Ouderkerk" | name == "Vlist" | name== "Bergambacht" | name == "Schoonhoven", "Krimpenerwaard")) %>%
+  mutate(name = replace(name, name == "Spijkenisse"| name == "Bernisse", "Nissewaard")) %>%
+  mutate(name = replace(name, name == "Nuenen. Gerwen en Nederwetten", "Nuenen, Gerwen en Nederwetten"))
+
+map_info <- d1 %>%
+    select(Gemeente, LEtotalpop)
+d1a1 <- d1 %>%
+mutate(uitstoot.per.capita = (Totaal.bekende.CO2.uitstoot.2016/TotaleBevolking_1))
+map_info2 <- d1 %>%
+    select(Gemeente, Totaal.bekende.CO2.uitstoot.2016)
+map_info2a <- d1a1 %>%
+    select(Gemeente, uitstoot.per.capita)
+map_info3 <- d1 %>%
+    select(Gemeente, WekelijkseSporters_16)
+map_info4 <- d1 %>%
+mutate( Hulp= ifelse(LEtotalpop>85,1,0))
+map_info5 <- map_info4 %>%
+  select(Gemeente, Hulp)
+map_info6 <- d1 %>%
+mutate( Hulp2= ifelse(LEtotalpop<80,1,0))
+map_info7 <- map_info6 %>%
+  select(Gemeente, Hulp2)
+map_info8 <- d1 %>%
+    select(Gemeente, GemiddeldeWoningwaarde_99)
+map_info9 <- d1 %>%
+    select(Gemeente, AfstandTotZiekenhuis_216)
+map_info10 <- d1 %>%
+  select(Gemeente, TotaleBevolking_1)
+map_info11 <- d1 %>%
+    select(Gemeente, TotaalMetMigratieachtergrond_44)
+map_info12 <- d1 %>%
+    select(Gemeente, Koopwoningen_94)
+map_info13 <- d1 %>%
+  select(Gemeente, LEmen)
+map_info14 <- d1 %>%
+  select(Gemeente, LEwomen)
+hulpmapinfo15 <- d1 %>%
+  mutate(Verschil.in.LE = (LEwomen - LEmen))
+mapinfo15 <- hulpmapinfo15 %>%
+  select(Gemeente,  Verschil.in.LE)
+map_info16 <- d1 %>%
+  select(Gemeente, GemiddeldGestandaardiseerdInkomen_41)
+map_info17 <- d1 %>%
+  select(Gemeente, InkomenTot120SociaalMinimum_13)
+map_info18 <- d1 %>%
+  select(Gemeente, ErvarenGezondheidGoedZeerGoed_1)
+map_info19 <- d1 %>%
+  select(Gemeente, k_80JaarOfOuder_21)
+
+
+d_MHV <- d1 %>%
+  select(Gemeente, GemiddeldeWoningwaarde_99, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+
+d_LOP <- d1 %>%
+  select(Gemeente, LagerOpgeleidenPercentage_5, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+
+d_ISM <- d1 %>%
+  select(Gemeente, InkomenTot120SociaalMinimum_13, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+
+d_GGI <- d1 %>%
+  select(Gemeente, GemiddeldGestandaardiseerdInkomen_41, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+
+d_EGGZG <- d1 %>%
+  select(Gemeente, ErvarenGezondheidGoedZeerGoed_1, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+
+d_TMMA <- d1 %>%
+  select(Gemeente, TotaalMetMigratieachtergrond_44, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+
+d_ATZ <- d1 %>%
+  select(Gemeente, AfstandTotZiekenhuis_216, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+
+d1a <- d1a1 %>%
+  select(-X, -Gemeente, -RegioS, - gemeente)
+
+d1b <- d1a %>%
+  select(LEtotalpop, LEmen, LEwomen, Divorced= Gescheiden_32, Migration = TotaalMetMigratieachtergrond_44, House_O = Koopwoningen_94, Mean_inc = GemiddeldGestandaardiseerdInkomen_41, Lower_edu = LagerOpgeleidenPercentage_5, Pop_density = Bevolkingsdichtheid_57, House_density = Woningdichtheid_93, Mean_HV = GemiddeldeWoningwaarde_99, Dist_Hosp = AfstandTotZiekenhuis_216, Inc_SM = InkomenTot120SociaalMinimum_13, Onepers_HH = Percentage_eenpersoonshuishoudens, Health_status_very_good = ErvarenGezondheidGoedZeerGoed_1, Multi_morbidity = EenOfMeerLangdurigeAandoeningen_2, Normal_weight= NormaalGewicht_9, Fit_norm=VoldoetAanFitnorm_14, Informal_care=UrenMantelzorgPerWeek_19, Weekly_sporters = WekelijkseSporters_16, EmissionCO2=uitstoot.per.capita, Householdsize = GemiddeldeHuishoudensgrootte_89, Total_population = TotaleBevolking_1, Percentage_over80 = k_80JaarOfOuder_21, Total_over80 = k_80JaarOfOuder_12 )
+
+d2 <- d1b %>%
+  select( -LEmen, -LEwomen, - EmissionCO2)
+
+d2a <- d2 %>%
+  na.omit()
+
+```
+
+
+
+
+\vspace{100pt}
+
+
+
+```{r, warning=FALSE, message='hide'}
+
+AddMapLayer(MapPlot(), map_municipal, map_info) +
+  guides(fill=FALSE)
+
+
+
+```
+
+
+
+\newpage
+
+&nbsp;
+
+
+\pagenumbering{arabic}
+
+\newpage
+
+\tableofcontents
+
+
+
+\newpage
+
+
+
+
+
+
+# Foreword {-}
+
+For this "profielwerkstuk"(PWS) I wanted to do someting with data science and machine learning for I'm very interested in this part of computer science. I got better at statistics along the way and learned some new techniques which probably will be very useful in the  future. The goal of "profielwerkstuk" for me is to do reproducible research. That's why I chose for R instead of for example Excel, because R is script based so you can see every step I made, which makes it reproducible.
+
+I had to learn about regressions, cross-validation and random forest in this project. I did this with a book called "An introduction to Statistical learning with applications in R" by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani [@james2013introduction].
+
+I was already familiar with R. I did some online courses and followed a lecture in making maps in R at  Tilburg University. I made some graphs for a physics project before but never before did I do a whole project in R. 
+
+I did this project under version control in a private repository on GitHub. The final version is published on a public repository (https://github.com/ArvidMikkers/PWS)
+
+
+The package I used for making maps, _"thematicmaps"_ is not available on Cran, you can download it, however, from my GitHub.
+
+The data cleaning file is situated in Apendix 2.
+
+I'm grateful for the guidance in this project of Habib Rejaibi (Cygnus Gymnasium). Next to Habib Rejaibi I got a lot of help from employees of the Dutch Healthcare Authority (NZa). I'm especially thankful to dr Gertjan Verhoeven (NZa and Tilburg University), Ramsis Croes (NZa and Erasmus University), dr Mark Klik (NZa), Annemiek van der Laan (NZa) and dr Victoria Shestalova (NZa) for their help and advice. I would like to thank Merlijn de Bruin (Cygnus Gymnasium), my grandparents Anke & Henk Mikkers and my parents Sandra Kompier & Misja Mikkers for proofreading this thesis.
+
+\newpage
+
+# Introduction
+
+## Research questions
+
+Last year, 2017 around Christmas, I was reading Outliers by M.Gladwell[@gladwell2008outliers]. One of the chapters in the book handles of the "Roseto mystery". Roseto is a community, in which the avarage life expectancy is well above the rest of the USA. I was triggered by the question if we had such communities in the Netherlands.   
+
+In this thesis I would like to answer the following question:
+
+_What explains regional variation in life expectancy?_
+
+Several sub questions are underlying the main question: 
+ 
+1.    Has social economic status an impact on regional variation in life expectancy (operationalized by income, education)?
+3.    Has ethnicity an impact on regional variation in life expectancy?
+4.  Has access to health care facilities an impact on regional variation in life expectancy (operationalized by distance to nearest hospital, informal care)?
+5.  Has health status an impact on regional variation in life expectancy (operationalized in weight, fitness and morbidity)?
+ 
+I also wanted to answer the question:
+2.  Have environmental factors an impact on regional variation in life expectancy (operationalized by CO2 emmision)?
+But since I could find no complete data on this subject, I could not answer this question unfortunately. 
+ 
+
+## Related literature
+
+After reading the chapter in the book "Outliers", I went online and found some articles on regional variance in life expectancy.
+Altough there was already done research on the regional variance of life expectancy in the Netherlands in 1988[@poppel1988], it only handled of the life expectancy between 1972 and 1984. There was a study on regional variance in healthy life expectancy (a prognosis for how many years you will live in a healthy status) done by TNO in 2002[@mulder2002regionale]. This article however focusses more on what a healthy life expectancy is and the regional variation in life expectancy, but does not discuss the factors which could explain this regional variation. In other countries there are only a few of those studies. Laura M Woods et al. wrote in 2005[@woods2005geographical] an article about deprivation as an explanatory factor for the geographical variation in life expectancy in Wales and England. Her study focusses on 1998. Another study, written in 2018 by Jessica Y Ho[@ho2018recent], focusses on a decrease in expectancy between 2014-2016 in high income countries by identifying the causes of death. In an American study by LauraDwyer-Lindgren et al. from 2017 [@dwyer2017inequalities], which is perhaps most similar to mine, they focussed on inequalities in the life expectation per county and tried to globally asses causes for that inequality. My contribution is that this study focusses on recent geographical differences in life expectancies.  I will search for factors that are associated with differences in life expectancy with open data. This study is published on my [GitHub account](https://github.com/ArvidMikkers), which makes this research completely reproducible. 
+
+This paper is organized as follows:
+First, I will describe the data in the section "Data" and then give an overview of the data in the section "Descriptive statistics". A section about the methodology and estimation strategy follows. Then I will describe my empirical results and robustness checks in the section Analysis. Finally I will discuss my results and draw conclusions.
+
+Appendix 1 contains some extra figures, that were not presented in the main text of this paper. Appendix 2 contains my notebook about datacleaning.In appendix 3 I present an extra regression on Health Status. In appendix 4 you can find the logbook of my activities for this project. 
+
+\newpage
+
+# Data
+
+To answer my research questions, I will use open-access data only. This makes my research  completely reproducible.
+
+I will use public data of CBS (Central Bureau of Statistics) for most variables and the "Ministerie van Infrastructuur en Waterstaat" (Ministry of Infrastructure and Water Management) for data on CO2-emissions. I used the public data of the RIVM for the life expectancy at birth. 
+
+On July 19th, 2018 I have downloadedthe data about life expectancy at birth from [RIVM](https://www.volksgezondheidenzorg.info/onderwerp/levensverwachting/regionaal-internationaal/bij-geboorte).
+
+On July 19th, 2018 I have downloaded the data about "kerncijfers" plus metadata from [CBS](https://opendata.cbs.nl/statline/portal.html?_la=nl&_catalog=CBS&tableId=70072ned&_theme=271).
+
+
+On July 19th, 2018 I have downloaded the data about "Gemeentefonds" plus metadata from [CBS](http://statline.cbs.nl/Statweb/publication/?DM=SLNL&PA=83440NED&D1=a&D2=1-390&HDR=G1&STB=T&VW=T).
+
+On July 19th, 2018 I have downloaded the data about the health plus metadata from [CBS](https://opendata.cbs.nl/statline/portal.html?_la=nl&_catalog=CBS&tableId=83674NED&_theme=312).
+
+On September 27th, 2018 I have downloaded the data about "CO2 emissions"  from [Rijkswaterstaat](https://klimaatmonitor.databank.nl/Jive).
+
+I'm interested in the life expectancy for the total population. I have merged and cleaned the data. The notebook with the data cleaning is included in appendix 2.
+
+
+\newpage
+
+# Descriptive statistics
+
+## Overview
+
+I have combined different datasets into one dataframe. I will start with some descriptive statistics of our data to be used in this paper.
+
+```{r, results= 'asis'}
+stargazer(d2, header = FALSE, type="latex", single.row = TRUE, title = "Descriptive statistics")
+```
+
+For my analysis I'm interested in the correlation between variables. Therefore, I will make a correlation plot. A correlation plot is a graphical representation of a correlation matrix. In this graph the color and size of the dot indicate the correlation coefficient. Since every variable is represented in the x-asis and the y-asis the plot is symmetrical in y=x. Obviously every correlation coeficient on the line y=x is 1, because variable on the y-asis is the same variable as on the x-asis.
+
+
+```{r}
+corrplot(cor(d2a), method="circle", shade.col=NA, tl.col="black", tl.cex = 0.8)
+```
+
+In the correlation plot we can see that some variables obviously correlate with life expectancy, the most notable being, Mean_Inc (the mean income per muncipality), House_value (the meam value of the houses per municipality), Health_status_very_good (Self-reported health status good to very good), Inc_SM(percentage of people with an income upto 120% of the social minimum)
+
+
+Some variables are also very strongly correlated with each other. Due to this collinearity I'm probably overstating or understating the impact some of these variables have on life expactency. I can derive from the correlation plot that, for example, the mean income per municipality (Mean_inc) correlates with the mean value of the houses per municipality (House_value) and the percentage of people with an income upto 120% of the social minimum (Inc_SM). This might be a problem for my analysis. I will discuss these problems in section 5.1.2
+
+Due to the number of variables in my correlation plot, the plot becomes hard to read. To give  a better insight in the correlation between these variables I can also present a network plot. In this plot variables closer to each other are more related. The color indicates the sign of relationship, with blue being positive and red being negative.
+
+```{r}
+d2a %>%
+  correlate() %>%
+  network_plot(min_cor = .5, repel= TRUE, curved = TRUE, legend = TRUE)
+```
+
+
+In the plot we can see numerous interesting things. Weight, the people who fullfill the fit norm and the sporting are correlated with each other. We can also see the impact of education and age on weight.
+
+Population density, house density, total population etc. in the top left corner are also correlated with each other. And then there is the group of variables in the botom center. This group contains our response variable life expectancy of the total population. In this group there are variables with respect to income, health status and the hours of informal care given. I expect to see these relationships in our formal analysis in paragraph 5.
+
+\newpage
+
+## Regional variation
+
+For some variables I will show the regional variation. For this purpose I created multiple maps. I think that maps offer the best insight in regional variance, and are highly readable.
+
+
+
+```{r, warning=FALSE, message='hide'}
+
+AddMapLayer(MapPlot(), map_municipal, map_info) +
+  guides(fill = guide_legend(title = "Life Expectancy at birth"))
+```
+In this map we see the life expectancy per municipality, the lighter the blue the higher the life expectancy. In appendix 1 you will find a few more maps of the municipalities with the highest and lowest Life expectancy highlighted, as well as maps with the life expectancy specifically for women and specifically for men and also a map with the difference between these expectancies.
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info2) +  guides(fill = guide_legend(title = "CO2 emission"))
+```
+Altough this map gives an interesting insight in the CO2 emmisions in the Netherlands, the datasets unfortunately contain many gaps. This is mostly due to the very few measurement points that the RIVM has. Because of this, I cannot answer my research questions about the effect of CO2 emissions on the life expectancy. We can see clearly that in the big cities, Amsterdam and Rotterdam, the CO2 emissions are notably higher than in the rest of the country. But besides that there is more industry in those areas, there live more people as well. To correct the fact that there live more people I have made a map of the emmisions per capita as well, which you can find in appendix 1. In that map is not Rotterdam, but Delfzijl notably larger than the rest of the Netherlands. 
+
+
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info9) +
+  guides(fill = guide_legend(title = "Distance to hospital"))
+```
+
+In this graph I present the regional variance in the distance to the nearest hospital. Most people only have to travel a maximum of 20 kilometers to the nearest hospital. But here we can see some interesting facts as well, because people who live at the edges of the country have to travel far further to a hospital. For example Zeeland massively under performs here. The islands in the north of the Netherlands are the obvious outliers with the nearest hospital over 60 kilometers away in some cases. 
+
+```{r, warning=FALSE, message='FALSE'}
+AddMapLayer(MapPlot(), map_municipal, map_info11) +
+  guides(fill = guide_legend(title = "population with migration background"))
+```
+
+In this map I present the percentage of people with a migration background per municipality. Here you can clearly see that the urban areas in the Netherlands vastly outperform the rest of the country, with the "Randstad" 40-50% of people having a migration background. While in some other provinces, for example the north-eastern part of the Netherlands rearly exceeding more than 10%. This is interesting since there is a ungoing debate over migration in the Netherlands with many protests against immigration happening in those areas, which have in fact far less immigrants than the rest of the Netherlands.  
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info8) +
+  guides(fill = guide_legend(title = "Mean House value"))
+```
+In this graph I present the mean house value per municipality in thousands of euro's. We can clearly see the outliers:  the municipalities who are situated close to the North Sea, but also close to the capital of the Netherlands, Amsterdam. 
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info16) +
+  guides(fill = guide_legend(title = "Mean standardized income"))
+```
+This is a map which shows you the mean yearly income per municipality. The mean standardized income is the mean income of a municipality corrected for the differences in size and the structure of the average household in that municipality. By doing this we can compare the welfare of different households.
+
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info17) +
+  guides(fill = guide_legend(title = "120% of the social minimum"))
+```
+This map shows you the percentage of people with an income up to 120% of the social minimum. The social minimum represents the quantity of money you minimally need to survive. This number differs according to location, age and living conditions. If you would use medication for example, your social minimum is higher than if you don't. Because of this, the social minimum is already corrected for the specific prices in your municipality. I decided to use the variable "percentage of people with an income up to 120% of the social minimum" because if you have an income lower than that you live in absolute poverty. Clearly visible is the fact that there are far more poor people in the big cities as well as in the the northern part of the Netherlands (e.g. Groningen).
+
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info18) +
+  guides(fill = guide_legend(title = "Self reported health >= good"))
+```
+This map shows the percentage of people who self reported their health as: good/ very good. The municipalities that immediately stand out are Rotterdam, Kerkrade and Delfzijl, who are far below national avarage. This means that people in these areas feel less healthy than in the rest of the country. This is interesting considering all the other variables where Rotterdam and North East Groningen both also score worse than the national avarage. 
+
+\newpage
+## Life expectancy and the number of elderly people
+
+
+I downloaded the data about the life expectancy per municipality from the RIVM. On their website they state  that this number is a prediction based on the number of deaths in every age category per municipality. But, because municipalities differ enormously in size, the prediction might not be very stable. Because of this RIVM has a model to correct for this. It is not possible for us to evaluate their system and their model to compute corrections, since it is not an open  source. I therefore check if life expectancy is not correlated with the number and age of very old people in a municipality.
+
+```{r}
+ggplot(d1, aes(x=k_80JaarOfOuder_12, y=LEtotalpop)) + geom_point() + theme_classic()+ xlab("Number of people over 80") + ylab("Life expectancy total population")
+```
+
+In this funnelplot we do not see a relationship between the number of people over 80 and the life expectancy in a municipality.
+
+```{r}
+ggplot(d1, aes(x=k_80JaarOfOuder_21, y=LEtotalpop)) + geom_point()+geom_smooth(method = "lm") + theme_classic()+ xlab("Percentage of people older than 80") + ylab("Life expectancy total population")
+```
+
+We also do not see a relationship between the percentage of people older than 80 in a municipality and the life expectancy in that municipality.
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info19) +
+  guides(fill = guide_legend(title = "Percentage of people elder than 80"))
+```
+
+
+Fortunately for me, we do not see a relation between the percentage of people over 80 nor the absolute number over 80, which means these predictions of RIVM are not just based on the number of elderly in a municipality. 
+
+\newpage
+
+## Relationship life expectancy with most important variables
+
+I made some simple graphs with the variables that have a big correlation according to the correlationplot. This includes the mean standardized income per municipality, the mean value of the houses of that municipality, the percentage of people who assess their own health as good to very good and the percentage of people with an income up to 120 percent of the social minimum. Because the variables are also strongly correlated (collinearity) with each other every result just indicates there might be a correlation between the life expactancy and the variable but not necessarily. R estimates the best linear regression (we will discuss that in the following paragraphs) and it will draw that as a blue line with the margin of error in grey. A larger grey area means more uncertainty. Most of the time when you have big outliers, R gives a big margin of error since it is uncertain about the $\alpha$ (the intercept) and $\beta$ (the slope) in $y=\alpha + \beta x$
+
+
+```{r}
+ggplot(data=d2, aes(x= Mean_inc, y=LEtotalpop)) + geom_point() + geom_smooth(method= "lm") + ylab("Life expectancy") + xlab("Mean standardized income")
+```
+
+In this graph we can see the life expectancy vs the mean standardized income. We see a clear upward trend which is an indication that the life expectancy improves if the mean standardized income increases. This is not a defenitive relationship between these two since you might have other factors which improve life expectancy in the municipalities with a higher mean standardized income. This is why I will correct for other factors in the following paragraphs to truly see the effect the mean standardized income and all other variables have on the life expectancy.
+
+
+
+```{r}
+ggplot(data=d2, aes(x= Mean_HV, y=LEtotalpop)) + geom_point() + geom_smooth(method= "lm") + ylab("Life expectancy") + xlab("Mean House value")
+```
+In this graph we can see the life expectancy vs the mean house value in a municipality. We see a clear upward trend which is an indication that the life expectancy improves if the mean house value in a municipality increases. In this graph there are a number of very big outliers(the municipalities on the shores we talked about earlier for example) which make the estimated value of the $\alpha$ and $\beta$ very uncertain.
+
+```{r}
+ggplot(data=d2, aes(x= Health_status_very_good, y=LEtotalpop)) + geom_point() + geom_smooth(method= "lm") + ylab("Life expectancy") + xlab("Self reported health >= good")
+```
+In this graph we can see the life expectancy vs percentage of people who self reported their health as: good/ very good. We see a clear upward trend which is an indication that the life expectancy improves if the mean standardized income increases. In this graph there are a lot of outliers which make the estimated value of the $\alpha$ and $\beta$ very uncertain. 
+
+```{r}
+ggplot(data=d2, aes(x= Inc_SM, y=LEtotalpop)) + geom_point() + geom_smooth(method= "lm") + ylab("Life expectancy") + xlab("Income upto 120 percent of the social minimum")
+```
+In this graph we can see the life expectancy vs percentage of people with an income upto 120 percent of the social minimum. We see a clear downward trend which is an indication the life expectancy worsens if the percentage of people with an income upto 120 percent of the social minimum increases.
+
+
+We can see that in all these graphs that none of the estimated variables is very predictive for life expectancy.
+
+I would like to have a more formal method to describe the relationship between life expectancy and all variables. In the next paragraph we will introduce a methodology to test these relationships.
+
+\newpage
+
+# Methodology
+
+In this paper I will use linear regression as technique to look at the relationschip between some factors (the predictors) and life expectancy of the total population (the response variable). I will use a prediction technique called random forest to assess if our model performs good, given the data. In this paragraph I will discuss linear regression and random forest. This paragraph is based on chapters 3 and 8 of @james2013introduction
+
+## linear regression
+
+To discuss linear regression, I will start with a very basic approach. I will assume that Y is a linear function of X and an error term. In mathematical form I assume:
+
+
+$$ Y = \beta_0 + \beta_1 X + \epsilon $$
+
+In terms of this paper I would label the life expectancy of the total population as $Y$, and for example the percentage of people with an income upto 120% of the social minimum in a municipality (Income upto 120% of the social minimum) as $X$. In a linear regression the goal is to estimate the parameters $\beta_0$ and $\beta_1$ so that the resulting regression equation is as close as possible to the data points.
+
+With some parameters $\beta_0$ and $\beta_1$ I can predict the response ("$\hat{y_i}$") with the $i$th value of X by formula: 
+
+$$\hat{y_i} = \beta_0 + \beta_1 x_i$$
+
+Then the difference between the predicted response $\hat{y_i}$ and the observed reponse in the data $y_i$ is called the residual $e_i$. 
+
+
+In the figure below I have plotted Income upto 120% of the social minimum versus life expectancy of the total population.
+
+```{r}
+
+reg_plot <- lm(LEtotalpop ~ Inc_SM, data=d2a)
+
+# For this plot we will make a new dataframe:
+
+d2_lm_plot <- d2a %>%
+  select(LEtotalpop, Inc_SM) %>%
+  mutate(pred = predict(reg_plot, data=d2a))
+
+
+ggplot(data = d2a, aes(x = Inc_SM, y = LEtotalpop)) +
+  geom_point() + geom_smooth(method = "lm", se = TRUE) +
+   geom_segment((aes(x = d2_lm_plot$Inc_SM, y = d2_lm_plot$LEtotalpop, xend = d2_lm_plot$Inc_SM,
+  yend = d2_lm_plot$pred)), color = "red") + theme_classic() + ylab("Life expectancy total population") + xlab("Income upto 120% of the social minimum")
+
+
+```
+
+In the figure I have plotted a regression line with the residuals (the red bars). As we can see, residuals can be either positive or negative. To prevent that the residuals will cancel each other out and to put more weight on very large residuals, it is common to square the residuals. The total sum of squares of the residuals is called RSS.
+
+
+
+$$RSS = e_1^2 + e_2^2 +e_3^2 + ....+ e_n^2$$
+
+The best parameters $\beta_0$ and $\beta_1$ are the parameters that will minimize the total sum of squares (RSS) of the residuals. The minimizers are given by:
+
+$$\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \overline{x})(y_i - \overline{y})}{\sum_{i=1}^n(x_i - \overline{x})^2}$$
+
+And 
+ 
+ $$\hat{\beta_0} = \overline{y} - \hat{\beta_1} \overline{x}$$
+Where $\overline{y} = \frac{1}{n}\sum_{i=1}^n y_i$ and $\overline{x} = \frac{1}{n}\sum_{i=1}^n x_i$ are the sample means.
+
+
+I would also like to know if our esitmated $\beta_0$ and $\beta_1$ are accurate. Therefore I have to compute the standard error $SE$. I can use the following formulas:
+
+
+$$SE(\hat{\beta_0})^2 = \sigma^2 \Bigg[\frac{1}{n} + \frac{\overline{x}^2}{\sum_{i=1}^n (x_i - \overline{x})^2}   \Bigg]   $$
+
+and 
+
+$$SE(\hat{\beta_1})^2 = \frac{\sigma^2}{\sum_{i=1}^n (x_i - \overline{x})^2} $$
+
+where $\sigma^2 = \frac{RSS}{n-k}$ for $n$ observations and $k$ predictors (in this example 2: $\beta_0$ and $\beta_1$).
+
+Standard errors can be used to perform hypothesis tests on the coefficient $\beta_1$. If $\beta_1 = 0$, there is no relation between $X$ and $Y$. It is common to formulate the hypotheses
+
+
+$$H_0 : \beta_1 = 0$$
+and 
+
+$$H_1 : \beta_1 \neq 0$$
+
+
+I will test this hypothesis with the _t-statistic_ $t$, which depends on the standard error:
+
+$$t= \frac{\hat{\beta_1}-0}{SE(\hat{\beta_1)}}$$
+This formula measures the number of standard deviations that $\hat{\beta_1}$ is away from zero. For a sufficiently large number of observations (normally more than 30), $t$ is a normal distribution. Therefore, it is possible to compute the probability of observing any value equal $|t|$, under the assumption that $\beta_1=0$ ("the p-value"). With a small p-value it is possible to reject $H_0$. A rejection of $H_0$ means it is possible to conclude that there is a relation between $X$ and $Y$. It is not possible to conclude that $X$ causes $Y$ without a causal model. Unfortunately I did not have time to study causal inference. 
+
+It is possible to extend the framework described above to a model with more predictors. In general the model with $p$ predictors to be estimated would look like:
+
+$$Y= \beta_0 + \beta_1X_1 + \beta_2X_2 + ... + \beta_pX_p$$
+
+This formula will not lead to a "regression line", but to a "prediction plane". 
+
+It is not possible to make a plot with more than 2 predictors, but I can plot a regression plane with 2 predictors. In our example I plot the following equation:
+
+$$LE = \beta_0 + \beta_1 * Inc\_SM + \beta_2 * Health\_status\_very\_good$$
+
+Where $LE$ is the life expectancy of the total population, $Inc\_SM$ income upto 120 % of the social minimum and $Health\_status\_very\_good$ is the percentage of people per municipality that score their health with "good" or "very good" (Self-reported health status good to very good).
+
+```{r}
+x  <- d2a$Inc_SM
+y  <- d2a$LEtotalpop
+z  <- d2a$Health_status_very_good
+df <- data.frame(x, y, z)
+LM <- lm(y ~ x + z, df)
+
+# scatterplot
+s3d <- scatterplot3d(x, z, y, pch = 19, type = "p", color = "darkgrey",
+                     main = "", xlab = "Income upto 120 % of the social minimum", ylab = "Life expectancy total population" ,   zlab = "Self-reported health status good to very good", grid = TRUE, box = FALSE,  
+                     mar = c(2.5, 2.5, 2, 1.5), angle = 55)
+
+# regression plane
+s3d$plane3d(LM, draw_polygon = TRUE, draw_lines = TRUE, 
+            polygon_args = list(col = rgb(.1, .2, .7, .5)))
+
+# overlay positive residuals
+wh <- resid(LM) > 0
+s3d$points3d(x[wh], z[wh], y[wh], pch = 19)
+
+```
+
+Finally, the last statistic to be reported is the $R^2$. This statistic indicates which percentage of the variation in $Y$ is explained by the model.  
+
+RSS is the _Residual Sum of Squares_  and was given above by the formula
+
+$$RSS = e_1^2 + e_2^2 +e_3^2 + ....+ e_n^2$$
+
+We can rewrite this formula to:
+
+$$ RSS = \sum\limits_{i=1}^n (y_i - \hat{y_i})^2 $$
+
+because $e_i=y_i - \hat{y_i}$.
+
+TSS is the _Total Sum of Squares_ and given by the formula
+
+$$ TSS = \sum(y_i - \overline{y} )^2$$
+With the RSS and the TSS it is possible to compute the $R^2$:
+
+
+$$ R^2 = 1- \frac{RSS}{TSS} $$
+
+\newpage
+
+## Random Forest
+
+
+In this paper I will use random forest to predict the life expectancy of the total population. Random forest is a prediction tool. Because it is able to pick up non-linearity and interaction terms, random forest predicts very well. However, the results are difficult to interpret. 
+
+To explain random forest, I have to explain the terms "random" and "forest".  I will first turn to the term "forest".
+
+A forest consists of trees. Random forest constructs many regression trees. I have plotted a regression tree to predict life expectancy of the total population based on the income upto 120 percent of the social minimum (Inc_SM) and the percentage of people to grade their health with good/very good (Health).
+
+
+```{r}
+df_tree <- d2a %>%
+  select(LEtotalpop, Inc_SM, Health = Health_status_very_good)
+
+tree <- rpart(LEtotalpop ~. ,data = df_tree)
+rpart.plot(tree, yesno = 2, box.palette = "RdYlGn")
+
+
+```
+
+The boxes in the lowest row in the graph are called the "terminal nodes" (or in the tree anology "leaves"). The other boxes are known as the "internal nodes" The lines that connect the nodes are called the "branches".
+
+At each node the tree splits in to 2 branches. For example, at the first split the municipalities are split according to the rule: Inc_SM >= 9.8. If a municipality fullfills this rule, it will go to the left branch. If not, it will go to the right branch. The percentage in the nodes indicates the proportion of the splitting. 
+
+The splits are done by minimizing the RSS. Since it is not possible to consider all possible splits to minimize the RSS, a "greedy" algorithm is used. In stead of looking to the best splits overall, the algorithm chooses the best split a each step.  
+
+A regression tree can be interpreted very well. Unfortunately, regression trees turn out to be very unstable. With slightly different data, regression trees will be formed totally different. Furthermore, the predictive accuracy of regression trees is pretty low. The idea of a "Forest" is to grow many trees (normally 5000) and take the average prediction of these trees. This boosts the accuracy and the robustness of the predictions.
+
+The "random" element of random forests, refers to the characteristic of the algorithm to grow different trees. For each tree and at each split, a random sample of predictors is chosen to split the nodes. The algorithm  chooses randomly a number (normally $\sqrt{number\_of\_predictors}$) of the predictors to split the node.
+
+\newpage
+ 
+# Analysis
+
+In this paragraph I will do the formal analysis of the data and present the results of my analysis. First I will do a linear regression. Then I will check for collinearity and choose one main model. I will do some robustness checks by checking for overfitting and use a random forest model to check whether our model performs adequate, given the data. Finally I will look into predictors of random forest and marginal effects of my main model.
+
+
+## Regression
+
+We saw in the paragaraph about methodology multiple demension regressions. In this case we have 21 variables so we will run a 21 demension regression. It is impossible to visualise anything with more demensions than 3, so we cannot visualise this, therefore the output is a table and not a graph.
+
+I will estimate a linear regression of the folowing form:
+
+
+\begin{align*}
+LEtotalpop &= \alpha + \beta_1 * Migration + \beta_2 * Mean\_inc + \beta_3 * pop\_density  + \beta_4 * Mean\_HV + \\
+& \beta_5 * Inc\_SM + \beta_6 * Health\_status\_very\_good + beta_7 * Normal\_weight + \\ 
+& \beta_8 * Informal\_care + \beta_9 * House\_O + \beta_{10} * Dist\_Hosp + \beta_{11} * Fit\_norm + \\
+& \beta_{12} * Divorced + \beta_{13} * Lower\_edu + \beta_{14} * House\_density + \beta_{15} * Onepers_HH + \\
+& \beta_{16} * Multi\_morbidity + \beta_{17} * Weekly\_sporters + \beta_{18} * Householdsize + \beta_{19} * Total\_population +\\
+& \beta_{20} * percentage\_over80 + \beta_{21} * total\_over80 + \beta_{22} * Inc\_SM
+\end{align*}
+
+
+Which leads to the following results: 
+
+
+
+```{r, results='asis'}
+lm1 <- lm(LEtotalpop ~  ., data = d2)
+stargazer(lm1, header = FALSE, type="latex", single.row = TRUE, title = "Results of the model with all predictors")
+```
+
+
+The $R^2$ tells us how far the data are from the fitted regression line. $R^2$ is given bij $\frac{explained variation}{total variation}$. In general the higher the $R^2$ the closer the observed data lies to the fitted line and the better your model fits your data. However a high $R^2$ isn't all that positive since you are probably overfitting and making a model on the datapoints you have, instead of making a model with your datapoints. If you are overfitting your model doesn't work on different data. The $R^2$ of the model is 44.7%. However, I will report the adjusted $R^2$. The adjusted $R^2$ takes the number of predictors into account. The adjusted $R^2$ increases only if an extra predictor improves the model more than would be expected by chance.
+My adjusted $R^2$ is 40.7% which is very common. In fields like economy and psychology the $R^2$ is most of the time between 40 and 60 percent while in physics an $R^2$ of 90% is pretty common.^[[source](http://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit)] Humans are just hard to predict. 
+
+The significance of the variables is indicated with the number of stars. We see a few very significant variables (indicated in the table with 3 stars). Those variables are: 
+
+* Health_status_very_good (percentage of people who self reported their Health as: good/ very good) 
+* Mean_inc (the mean standardized income). 
+
+
+I allready predicted that those variables would correlate with the life expectancy based on the correlation plot and the network plot. Still some variables that I would think to have a correlation with the life expectancy don't appear to be significant. I think this might have to do with multicollinearity: if some variables are strongly correlated with each other this will influence the estimation of the coefficients(the $\beta$'s). And, therefore impact the confidence interfalls and their significance.
+
+\newpage
+### Multicollinearity
+
+As we have seen in the correlatation plots, some of the predictor variables are correlated with each other. This is problematic for linear regressions, because "collinearity" makes separtion of individual effects of the predictors difficult. In other words,  "collinearity reduces the accuracy of the estimates of the regression coefficients, it causes the standard error [of the coefficients] to grow" (see page 101 of [@james2013introduction]). We can see multicollinearity in the correlation plot. However, correlation plots do not reveal all collinearity problems in the data (e.g. between three or more variables in the data). 
+
+
+
+### VIF
+
+A formal check for multicollinearity is the _Variance inflation factor_ (VIF). The VIF is calculated by the formula (source of the formula is @james2013introduction page 102):
+
+
+
+$$ VIF(\hat{\beta}_j) = \frac{1}{1-R^2_{X_j|X_{-j}}} $$
+
+Where $R^2_{X_j|X_{-j}}$ is the $R^2$ from a regression of $X_j$ on all other predictors. So if $R^2_{X_j|X_{-j}}$ close to 1, collinearity will be present and the VIF will be large. @james2013introduction advises to exclude variables with a VIF > 5 (or VIF >10) from the analysis. I have chosen to use to treshold of 5 for VIF.
+
+It is possible to use the R package _car_ to calculate the VIF. The results are:
+
+```{r, results= "asis"}
+stargazer(vif(lm1), header = FALSE, type = "latex", flip = TRUE, title = "Multicollinearity in the first model")
+```
+
+\newpage
+
+The following variables have a VIF larger than 10:
+
+- Pop_density
+- House_density
+- Onepers_HH
+- Householdsize
+- Total_population
+- Total over80
+
+
+There are a few variables that have a VIF between 5 and 10:
+
+- Divorced
+- Migration
+- House_O
+- Inc_SM
+
+
+To select my variables for the main model,  I have done a stepwise selection procedure. Each time I deleted the variable with the highest VIF (> 5), until no variables had a VIF > 5. Since they are correlated we do not have to throw away every variable with a VIF-rating higher than five, because if we delete one of the variables (for example, House_density) the VIF-rating of the correlated variable drops because the variable that it correlated with (in the case of House_density: Pop_density (population density)) has been taken out of the dataset. I had to take the following variables out of our dataset: House_density, Total_over80, OnepersHH, Inc_SM, Householdsize and Migration. After I deleted Migration there weren't any variables with a VIF higher than five, as you can see in the table below.
+
+```{r}
+lm1f <- lm(LEtotalpop ~  . -House_density -Total_over80 -Onepers_HH -Inc_SM -Householdsize -Migration, data = d2)
+```
+
+
+
+```{r, results= "asis"}
+stargazer(vif(lm1f), header = FALSE, type = "latex", flip = TRUE, title = "Multicollinearity in the main model")
+```
+
+
+Therefore, I can now estimate a linear model of all remaining variables. I will call this "The main model", which looks like this:
+
+\begin{align*}
+LEtotalpop &= \alpha + \beta_1 * Mean\_inc + \beta_2 * pop\_density  + \beta_3 * Mean\_HV + \beta_4 * Health\_status\_very\_good + \\
+&  \beta_5 * Normal\_weight + \beta_6 * Informal\_care + \beta_7 * House\_O + \beta_{8} * Dist\_Hosp + beta_{9} * Fit\_norm + \\ 
+&   \beta_{10} * Divorced + \beta_{11} * Lower\_edu + \beta_{12} * Multi\_morbidity + \beta_{13} * Weekly\_sporters + \beta_{14} * Inc\_SM + \\
+&    \beta_{15} * percentage\_over80 +  \beta_{16} * Total\_population
+\end{align*}
+
+Which leads to the following results: 
+
+
+```{r, results= "asis"}
+lm2 <- lm(LEtotalpop ~  . -House_density -Total_over80 -Onepers_HH -Inc_SM -Householdsize -Migration, data = d2)
+
+stargazer(lm2, header = FALSE, type="latex",  title = "Results of the main model")
+```
+
+In this regression, made with only the variables which passed the VIF-test, we see more significant varariables than before the VIF. Instead of just the two significant variables before we now have four: Health_status_very_good (percentage of people who self reported their Health as: good/ very good), Mean_inc (the mean standardized income), House_O (the percentage of of households who own the house the live in) and Lower_edu (the percentage of who are lower educated^[lower educated are people who finished at most, primary education, the first three years of highschool, lower vocational education(VMBO) or intermediate vocational education (MBO-level 1)]). As expected, multicollinearity decreases significance of the coefficients.
+
+The adjusted $R^2$ for this regression is 39.6%, which is only slightly lower than the $R^2$ in the first model with all predictors (40.7%).  
+
+## Overfitting
+
+As described above a model might be overfitted, which means that the estimated coefficients are tailored to the data and will poorly perfom on new data. Therefore, I will check for overfitting by a technique called cross validation. 
+
+Cross validation (see chapter 5 of @james2013introduction) is a technique by which we will split the data randomly in different parts, which are called "folds". I will use 10 folds. Nine of these folds will be used to estimate the model and the performance of the model is checked at the 10th fold (the "test fold"). Each fold is used as test fold, which means that the folds "rotate". Therefore the model is estimated and tested  10 times. Because I will split the data 5 times in 10 folds, I will estimate and test the model in total 50 times.
+
+Furthermore, I will split the data in a train set and a test set. I will estimate the coefficients with cross validation on the train data and then predict the outcomes in the test data (which were not used to develop the model) with the fitted model. If the $R^2$ does not differ too much between the train set and the test set, the model is not overfitted. 
+
+I can only run the cross validation on complete data (we have to delete the observations with NA's). By deleting NA's we lose 61 observations.
+
+
+```{r}
+
+# We need complete cases
+set.seed(123)
+trainIndex <- createDataPartition(d2a$LEtotalpop, p=.8,
+                                  list=FALSE,
+                                  times =1)
+
+df_train <- d2a[trainIndex,]
+df_test <- d2a[-trainIndex,]
+
+```
+
+The results of the cross validation of the main model on the data are:
+
+```{r}
+lmControl <- trainControl(method = "repeatedcv",
+                          number = 10,
+                          repeats = 5)
+
+lmreg <- train(LEtotalpop ~  . -House_density -Total_over80 -Onepers_HH -Inc_SM -Householdsize -Migration,
+               data = df_train,
+               method = "lm",
+               trControl = lmControl)
+```
+
+```{r}
+
+
+RMSE <- lmreg$results$RMSE
+lmreg_results <- as.data.frame(RMSE)
+lmreg_results <- lmreg_results %>%
+  mutate(R_squared = lmreg$results$Rsquared) %>%
+  mutate(MAE =lmreg$results$MAE)
+
+kable(lmreg_results, booktabs = T, caption = "Performance of cross validated regression")
+  
+
+```
+
+I conclude that overfitting is not much of a problem : the adjusted $R^2$ of the main model was 39.6%, the $R^2$ of the cross validated model is 37.5%.
+
+\newpage
+### Random forest
+
+
+As mentioned in paragraph 4.2 random forest picks up non linearities and interactions. I will use random forest to check if I can get more out of the model. I expect that random forest will lead to a higher $R^2$, because it will use all variables (because prediction is the goal, multicollinearity is no problem) and picks up possible non linearities and interactions. I do not expect that the extra variables in the random forest will cause a much larger $R^2$, because we already saw in the linear regressions that omitting the variables with a VIF $\geq$ 5 did not change the $R^2$ that much. 
+
+If random forest does not lead to a much higher $R^2$, I assume that I don't have to look for non linearities and interactions and therefore that the main model performs reasonably well, given the data.
+
+I will run a random forest cross validated on my train data and display the results.
+
+
+```{r, results='hide'}
+rfControl <- trainControl(method = "repeatedcv",
+                          number = 10,
+                          repeats = 5)
+
+rf <- train(LEtotalpop ~  . ,
+               data = df_train,
+               method = "ranger",
+              importance = "impurity",
+               trControl = lmControl)
+
+
+```
+
+
+
+
+```{r}
+mtry <- rf$results$mtry
+
+rf_results <- as.data.frame(mtry) %>%
+  mutate(splitrule = rf$results$splitrule) %>%
+  mutate(RSME = rf$results$RMSE) %>%
+  mutate(Rsquared = rf$results$Rsquared) %>%
+  mutate(MAE = rf$results$MAE)
+
+kable(rf_results, booktabs = T, caption = "Results random forest")
+
+```
+
+
+Tuning parameter 'min.node.size' was held constant at a value of 5.
+RMSE was used to select the optimal model using the smallest value.
+The final values used for the model were mtry = 11, splitrule = extratrees and min.node.size = 5.
+
+
+
+
+The main model performs pretty well: the adjusted $R^2$ of our main model was 39.6% (Cross Validated was 37.5%), the $R^2$ of the random forest is 40.6%. This means that I don't need to look for non-linearities and interaction terms.
+
+I can show this graphically 
+
+```{r}
+
+set.seed(123)
+resamps <- resamples(list(`Linear Regression`= lmreg, `Random Forest` = rf))
+
+
+
+
+res <- data.frame(summary(resamps)$statistics$Rsquared) # get R^2 out summary
+res <- res * 100 # make percentage
+res <- res %>%
+  mutate(model_name = row.names(res))
+ggplot(data = res, aes(x = reorder(model_name, Mean), y= Mean)) +
+  geom_linerange(aes(ymin = Min., ymax = Max.)) +
+  geom_linerange(aes(ymin = X1st.Qu., ymax =X3rd.Qu.), size = 2.5)+
+  geom_point(size = 4, shape=22, color = "black", fill = "red")+
+  coord_flip() +
+  ylim(0,100)+
+  ylab("R squared")+
+  xlab("") +
+  theme_classic()
+  
+```
+
+The confidence intervals are large, due to the fact that I only have 313 municipalities in the complete cases dataset.
+
+\newpage
+
+## Interpreting the results
+
+### How well does our model predict?
+
+I will predict the results of the cross validated regressions and random forest on the test set. I will present a plot of real values versus predicted values.
+
+```{r}
+df_test <-df_test %>%
+mutate(predictionlm= predict(lmreg, df_test))
+```
+
+
+```{r}
+df_test <-df_test %>%
+mutate(predictionrf= predict(rf, df_test))
+```
+
+
+```{r}
+df_test_plot <-df_test %>%
+  select(LEtotalpop, predictionlm, predictionrf) %>%
+  gather(Model, Outcome, 2:3)
+
+ggplot(data=df_test_plot, aes(x=LEtotalpop, y=Outcome, color= Model)) + geom_point()+ geom_abline(slope = 1, intercept = 0) + xlim(79,86) + ylim(79,86) +
+  scale_colour_manual(
+  name = "Prediction" , 
+  breaks = c("predictionlm", "predictionrf"),
+  labels = c("Linear regression \nmain model", "Random forest"),
+  values = c("royalblue2", "firebrick2")) +
+  xlab("Actual life expectancy in the test set") +
+  ylab("Predicted life expectancy in the test set")
+```
+
+The plotted line in this graph has an angle of 45 degrees. Any prediction of life expectancy of a municipality by the models that would be equal to observed life expectancy of a municipality, would be on the line. The blue dots represent the predictions by the main regression model, the red dots represent the predictions by the random forest model.
+
+The main model performs reasonably well, given the data. In other words, it does not seem possible to improve the analysis with assuming non-linearity and interaction between variables.
+
+\newpage
+
+### Variable importance of random forest
+
+Random forest gives the possibility to plot the variable importance (a measure of how much each variable contributed to the prediction). 
+
+```{r}
+LEIMP <- varImp(rf, scale=FALSE)
+plot(LEIMP)
+```
+
+We can see that the variables that looked important in our correlation plots (Inc_SM etc), contribute most to the predictions of random forest.
+
+\newpage
+
+###  Marginal Effects
+
+For the regressions, it is possible to plot the marginal effects. Marginal effects are the changes in the response variable (in our case life expectancy) and a change in 1 predictor (e.g. Mean_Inc) while holding all other predictors constant. In case of a linear regression, the marginal effects are equal to the estimated coefficients ($\beta$'s).
+
+In the plot I only show the most significant variables.
+
+
+```{r}
+df_ME_health <- ggpredict(lm2, terms= "Health_status_very_good")
+df_ME_House_O <- ggpredict(lm2, terms= "House_O")
+df_ME_Mean_Inc <- ggpredict(lm2, terms= "Mean_inc")
+df_ME_Lower_edu <- ggpredict(lm2, terms= "Lower_edu")
+
+plot_ME_Health <-ggplot(df_ME_health, aes(x,predicted)) + geom_line(color="firebrick2") + ylim(80,84) + 
+  xlim(0,100)  + xlab("Self-reported health: >= good")  + ylab("Predicted LE")
+plot_ME_House_O <-ggplot(df_ME_House_O, aes(x,predicted)) + geom_line(color="royalblue2") + ylim(80,84) +
+  xlim(0,100) + xlab("House ownership") + ylab("Predicted LE")
+plot_ME_Mean_Inc <-ggplot(df_ME_Mean_Inc, aes(x,predicted)) + geom_line(color= "green") +   ylim(80,84) + xlab("Mean standardized income") + ylab("Predicted LE")
+plot_ME_Lower_edu  <-ggplot(df_ME_Lower_edu, aes(x,predicted)) + geom_line(color="purple") + ylim(80,84) + 
+  xlim(0,100)  + xlab("Percentage of lower educated")  + ylab("Predicted LE")
+
+plot_grid( plot_ME_House_O, plot_ME_Health, plot_ME_Mean_Inc, plot_ME_Lower_edu)
+```
+
+The marginal effects in the main model differ from the variable importance of the random forest model. In the random forest model I used all variables as predictors, while in the main model I omitted variables due to multicollinearity. 
+
+\newpage
+
+# Conclusions
+In this study, I have examined the impact of various factors like social economic status, ethnicity, health care facilities and health status on life expectancy in Dutch municipalities. I have found that a higher social economic status is associated with a higher life expectancy. In the main model variables that are proxies for social economic status like the mean standardized income, the percentage of lower educated people, the percentage of people who own the house they live in, are highly significant with the expected signs (a higher percentage of lower educated people decreases life exectancy in the model, while the other mentioned variables increase life expectancy).
+ 
+Ethnicity does not seem to have a significant impact on life expectancy. In the model with all predictors the percentage of people with a migration background is not significant. This variable is not included in the main model, because this variable is strongly correlated with other variables that are proxies for social economic status. Migration is also not an important variable in the random forest analysis. Therefore, I conclude that ethnicity is not an important factor for life expectancy. However, people with a migration background may have a lower life expectancy, because on average they have a lower social economic status.
+
+
+
+The distance to nearest hospital has in the main model a negative significant (p-value = 0.014) impact on life expectancy. This means that the larger distance to the nearest hospital the more the life expectancy decreases. In the random forest this is a pretty important variable as well. This is probably because if you need acute medical attention the fact that there is a hospital close could save your life. The access to informal care is not a significant factor in our regressions.
+
+
+
+I found only one significant variable which would suggest that health status is an influential factor on the life expectancy, which is the percentage of people who self reported their health as good or as very good. All other variables are not significant. But I suspect that is because those variables play a big part in if people feel healthy. So I decided to run another regression but this time not with Life expectancy as the depended variable but with the percentage of people who self reported their health as good or as very good^[appendix 3]. In this regression, Divorced (the percentage of people who is divorced), Lower_edu (percentage of lower educated), Mean_HV (mean of the house value of that municipality), Multi_morbidity (the percentage of people with one or more physical defects;  disabled persons), Fit_norm (the percentage of people who are able to pass the "fitnorm"(being able to preform heavy phisical acctivities for 20 minutes, three times a week)), Weakly_sporters (percentage of people who sport every week), Percentage_over80 (percentage of people older than 80) are very significant. Except Mean_HV and Fit_norm all of these variables are negatively significantly correlated with the the percentage of people who self reported their health as good or as very good. So those variables do probably impact the Life_expetancy but the system wasn't able to pick most of these up because they are already represented in the percentage of people who self reported their health as good or as very good. Notable is that a divorce negatively impacts how healthy you feel, aswell as that a lower education negatively impacts how healthy you feel.  
+
+There were some limitations to this research however; most notably that I did not use a causal model, therefore I cannot conclude that significant factors _cause_ a  change in life expectancy. Since I did not have enough time to study causal inference. I also could not measure environmental factors, which could have been important. It probably would have increased the explanatory value (a higher $R^2$) of the main model.
+
+In the future I would like to extend this paper with a causal model. I also did not look into the differences in life expectancy between men and women. Those life expectancies seem to differ a lot and react different to different variables. I made some graphs to show this, those are situated in appendix 2. In future research more attention could be paid to the differences in life expectancy between men and women to improve my model.
+
+Finally, I would like to conclude this paper with two policy recommandations:
+
+Social economic status seems to be really important. The government should aim at improving the social economic status by e.g. investing in more and better eduction and circumstances that people with low SES live in (for example better houses, easier access to sport facilities).
+
+There is a lot of discussion about mergers between and bankruptcies of hospitals in the Netherlands. I would recommend that when decisions are taken about mergers and bankrupties the impact of an increased distance on life expectancy is taken into account.  
+
+
+\newpage
+
+
+
+
+# Appendix 1: Extra figures{-}
+
+
+## Relation of life expectancy and total population
+
+I present a funnel plot with life expectancy as a function of the total population per municipality. To present the same information in a more accessable way, I have also taken the log of the total population.
+
+
+
+
+```{r}
+ ggplot(d1, aes(x=TotaleBevolking_1, y=LEtotalpop)) + geom_point()+ theme_classic() + xlab("Total population") + ylab("Life expectancy total population")
+```
+
+```{r}
+ ggplot(d1, aes(x=log(TotaleBevolking_1), y=LEtotalpop)) + geom_point() + theme_classic()+ xlab("Logarithm of the total population") + ylab("Life expectancy total population")
+```
+
+
+## Various maps
+
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info5) +
+  guides(fill = guide_legend(title = "Life expectency over 85"))
+```
+In this map you see the municipalities with the highest life expectancy of the Netherlands. Every municipality which has a life expectancy over 85 is lightblue, every municipality which has a life expectancy under 85 is darkblue.
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info7) +
+  guides(fill = guide_legend(title = "Life expectency under 80"))
+```
+
+In this map you see the municipalities with the lowest life expectancy of the Netherlands. Every municipality which has a life expectancy under 80 is lightblue, every municipality which has a life expectancy over 80 is darkblue. The obvious spots which directly catch attention are the North-eastern part of Groningen and the Eastern part of Limburg.
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info13) +
+  guides(fill = guide_legend(title = "Life expectency men"))
+```
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info14) +
+  guides(fill = guide_legend(title = "Life expectency women"))
+```
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, mapinfo15) +
+guides(fill = guide_legend(title = "Difference in life expectancy men and women"))
+```
+
+In this graph you see the life expectancy of women minus the life expectancy of men. There is only one municipality in the Netherlands where women generally die earlier than men (Renswoude), marked with a dark blue dot on the map.
+
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info2a) +
+  guides(fill = guide_legend(title = "CO2 emission per capita"))
+```
+
+The total CO2 emmision divided by the number of people who live in that municipality. Delfzijl stands out with its enormous emissions without many people living there.
+
+
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info3) +
+  guides(fill = guide_legend(title = "Percent weekly sporters"))
+```
+
+This plot presents the percentage of people who sport at least once a week. Notice the North-eastern part of Groningen where sport clearly isn't daily business so to speak.
+
+
+```{r, warning=FALSE, message='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info10) +
+  guides(fill = guide_legend(title = "total Population"))
+```
+
+A map of the total population per municipality with Amsterdam and Rotterdam as obvious outliers.
+
+```{r, warning=FALSE, message='hide', paged.print = FALSE, results='hide'}
+AddMapLayer(MapPlot(), map_municipal, map_info12) +
+  guides(fill = guide_legend(title = "House Ownership"))
+```
+
+A map of the total percentage of people who owns a house. Notice Amsterdam and Rotterdam as outliers.
+
+\newpage
+
+## Regression graphs
+
+In this paragraph I will show a number of graphs with the relationship of the life expectancy of men and women and various predictors. I did not use the distinction in life expectancy between men and women in this research.
+
+
+```{r}
+ggplot(d_MHV, aes(x=GemiddeldeWoningwaarde_99, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic() + xlab("Mean house value") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+```{r}
+ggplot(d_MHV, aes(x=log(GemiddeldeWoningwaarde_99), y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic()+ xlab("Logarithm of the Mean house value") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+```{r}
+ggplot(d_LOP, aes(x=LagerOpgeleidenPercentage_5, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic()+ xlab("Percentage lower educated") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+```{r}
+ggplot(d_ISM, aes(x=InkomenTot120SociaalMinimum_13, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic()+ xlab("Income upto 120 percent of the social minimum") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+```{r,warning=FALSE}
+ggplot(d_GGI, aes(x=GemiddeldGestandaardiseerdInkomen_41, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic()+ xlab("Mean standardized income") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+```{r}
+ggplot(d_EGGZG, aes(x=ErvarenGezondheidGoedZeerGoed_1, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic() + xlab("Self-reported health: good/very good") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+```{r}
+ggplot(d_TMMA, aes(x=TotaalMetMigratieachtergrond_44, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic() + xlab("Percentage of people with a migration background") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+```{r}
+ggplot(d_ATZ, aes(x=AfstandTotZiekenhuis_216, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic() + xlab("Distance to the nearest hospital") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+```{r}
+ggplot(d_ATZ, aes(x=log(AfstandTotZiekenhuis_216), y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") +theme_classic()+ xlab("Logarithm of the distance to the nearest hospital") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+\newpage
+
+# Appendix 2: Notebook datacleaning {-}
+
+## Packages
+
+We need the library Tidyverse for data manipulation.
+
+
+```{r, echo=TRUE}
+library(tidyverse)
+```
+
+
+
+## Data
+
+### RIVM
+
+On July 19th, 2018 I have downloaded the data about life expectancy at birth from [RIVM](https://www.volksgezondheidenzorg.info/onderwerp/levensverwachting/regionaal-internationaal/bij-geboorte)
+
+We are interested in the life expactancy for the complete population.
+
+```{r, echo=TRUE}
+dataLE1 <- read.csv2("../Datacleaning/sourcedata/RIVM/LE.csv") %>%
+  filter(Geslacht == "Totaal")%>%
+  select(Gemeente, Bij.geboorte)
+```
+
+```{r, echo=TRUE}
+  colnames(dataLE1)[colnames(dataLE1)=="Bij.geboorte"] <- "LEtotalpop"
+```
+
+```{r, echo=TRUE}
+dataLE2 <- read.csv2("../Datacleaning/sourcedata/RIVM/LE.csv") %>%
+  filter(Geslacht == "Mannen")%>%
+  select(Gemeente, Bij.geboorte)
+```
+
+```{r, echo=TRUE}
+  colnames(dataLE2)[colnames(dataLE2)=="Bij.geboorte"] <- "LEmen"
+```
+
+
+```{r, echo=TRUE}
+dataLE3 <- read.csv2("../Datacleaning/sourcedata/RIVM/LE.csv") %>%
+  filter(Geslacht == "Vrouwen")%>%
+  select(Gemeente, Bij.geboorte)
+```
+
+```{r, echo=TRUE}
+  colnames(dataLE3)[colnames(dataLE3)=="Bij.geboorte"] <- "LEwomen"
+```
+
+```{r, echo=TRUE}
+dataLE4 <- full_join(dataLE1, dataLE2, by = "Gemeente")
+```
+
+```{r, echo=TRUE}
+dataLE <- full_join(dataLE4, dataLE3, by = "Gemeente")
+```
+
+\newpage
+
+### CBS
+
+
+#### Kerncijfers
+
+On July 19th, 2018 I have downloaded the data about "kerncijfers" plus metadata from [CBS](https://opendata.cbs.nl/statline/portal.html?_la=nl&_catalog=CBS&tableId=70072ned&_theme=271)
+
+```{r, echo=TRUE}
+kerncijfers <- read.csv2("../Datacleaning/sourcedata/CBS/kerncijfers.csv") 
+  
+
+```
+
+The data contain information about different aggregation levels. We are interested in the data of the municipalities. The id's for municipalities contain the string "GM". We will filter the municipalities. There are many municipalities without population, we will select municipalities with population.
+
+```{r, echo=TRUE}
+kerncijfers2 <- kerncijfers %>%
+  filter(grepl("GM", RegioS)) %>%
+  filter(TotaleBevolking_1 != "NA")
+
+
+```
+
+The file `kerncijfers.csv` contains data per municipality about demographic characteristics. The data do not contain the names of the municipalities, but id's. To be able to merge these data with the RIVM data on life expecentancy, we will first produce a table with id's and names of municipalities from the metadata of the "kerncijfers". We need to rename TableInfos to RegioS and X to "Gemeente" to match the columns.
+
+```{r, echo=TRUE}
+MD_kerncijfers <- read.csv2("../Datacleaning/sourcedata/CBS/metadata_kerncijfers.csv")
+
+```
+
+
+```{r, echo=TRUE}
+Merge_table <- MD_kerncijfers %>%
+  select(RegioS = TableInfos, Gemeente = X) %>%
+  filter(grepl("GM", RegioS))
+
+Merge_table$Gemeente <- as.character(Merge_table$Gemeente)
+
+str(Merge_table)
+```
+
+Now we can merge the `kerncijfers` with the `Merge_table`. First we will change the variable `RegioS` in the dataframes to be merged in to a character.
+
+
+
+```{r, echo=TRUE}
+
+Merge_table$RegioS <- as.character(Merge_table$RegioS)
+kerncijfers2$RegioS <- as.character(kerncijfers2$RegioS)
+
+
+kerncijfers3 <- right_join(Merge_table, kerncijfers2, by="RegioS")
+
+```
+
+And finally we can merge `dataLE` with `kerncijfers3`
+First we will change the variable `Gemeente` in to a character. 
+
+
+```{r, echo=TRUE}
+dataLE$Gemeente <- as.character(dataLE$Gemeente)
+kerncijfers3$Gemeente <- as.character(kerncijfers3$Gemeente)
+data1 <- inner_join(dataLE, kerncijfers3, by = "Gemeente")
+
+
+```
+
+\newpage
+#### Data selection
+
+
+
+```{r, echo=TRUE}
+data1a <- data1 %>%
+ 
+  select(LEtotalpop, LEwomen, LEmen, Gemeente, Gescheiden_32, TotaalMetMigratieachtergrond_44, Bevolkingsdichtheid_57, GemiddeldeHuishoudensgrootte_89, Woningdichtheid_93 , Koopwoningen_94 , GemiddeldeWoningwaarde_99 ,  AfstandTotZiekenhuis_216, TotaleBevolking_1, k_80JaarOfOuder_21,k_80JaarOfOuder_12 )
+
+
+
+data1a$Gescheiden_32 <- as.numeric(as.character(data1a$Gescheiden_32))
+data1a$TotaalMetMigratieachtergrond_44 <- as.numeric(as.character(data1a$TotaalMetMigratieachtergrond_44))
+data1a$GemiddeldeHuishoudensgrootte_89 <- as.numeric(as.character(data1a$GemiddeldeHuishoudensgrootte_89))
+data1a$Koopwoningen_94 <- as.numeric(as.character(data1a$Koopwoningen_94))
+data1a$AfstandTotZiekenhuis_216 <- as.numeric(as.character(data1a$AfstandTotZiekenhuis_216))
+data1a$k_80JaarOfOuder_21 <- as.numeric(as.character(data1a$k_80JaarOfOuder_21))
+str(data1a)
+
+```
+
+\newpage
+#### Gemeentefonds
+
+We need to add some information to the data set about socio-economic factors (such as income, education and benefits).
+
+On July 19th, 2018 I have downloaded  the data about "Gemeentefonds" plus metadata from [CBS](http://statline.cbs.nl/Statweb/publication/?DM=SLNL&PA=83440NED&D1=a&D2=1-390&HDR=G1&STB=T&VW=T)
+
+We need the variable `RegioS` to be able to merge. We will `filter` this variable for all observations containing ("GM")
+
+For Income we will select the average income and the percentage of low income people.
+For education we will take the percentage of lower educated people
+We also want to select the percentage of one person households. This variable is not available, but we will construct this variable from the number of households and the number of one person households.
+
+```{r, echo=TRUE}
+GF <- read.csv2("../Datacleaning/sourcedata/CBS/gemeentefonds.csv")
+
+GF2 <- GF %>%
+  filter(grepl("GM", RegioS)) %>%
+  select(RegioS, GemiddeldGestandaardiseerdInkomen_41, InkomenTot120SociaalMinimum_13, LagerOpgeleidenPercentage_5, Huishoudens_32, Eenpersoonshuishoudens_44) %>%
+  mutate(Percentage_eenpersoonshuishoudens = (Eenpersoonshuishoudens_44/Huishoudens_32)*100)
+
+
+GF3 <- GF2 %>%
+  select(-Huishoudens_32, -Eenpersoonshuishoudens_44)
+
+GF3$GemiddeldGestandaardiseerdInkomen_41 <- as.numeric(as.character(GF3$GemiddeldGestandaardiseerdInkomen_41))
+GF3$InkomenTot120SociaalMinimum_13 <- as.numeric(as.character(GF3$InkomenTot120SociaalMinimum_13))
+GF3$LagerOpgeleidenPercentage_5 <- as.numeric(GF3$LagerOpgeleidenPercentage_5)
+
+str(GF3)
+```
+
+Now we can merge `GF3` with `Merge_table`, we need to change `RegioS` in to a character.
+And GF4 with `data1`, we need to change `Gemeente` in to a character.
+
+```{r, echo=TRUE}
+
+GF3$RegioS <- as.character(GF3$RegioS)
+
+
+GF4 <-right_join(Merge_table, GF3, by="RegioS")
+
+GF4$gemeente <- as.character(GF4$Gemeente)
+data2 <- left_join(data1a, GF4, by= "Gemeente")
+
+```
+
+\newpage
+#### Health monitor
+
+On July 19th, 2018 I have downloaded the data about the health plus metadata from [CBS](https://opendata.cbs.nl/statline/portal.html?_la=nl&_catalog=CBS&tableId=83674NED&_theme=312)
+
+```{r, echo=TRUE}
+HM <- read.csv2("../Datacleaning/sourcedata/CBS/health_monitor.csv")
+summary(HM$Perioden)
+```
+
+I add the names of the municipalities to our table instead of the ID's the CBS uses.
+
+```{r, echo=TRUE}
+HM$RegioS <- as.character(HM$RegioS)
+
+
+HM2 <- full_join(Merge_table,HM , by="RegioS") %>%
+ filter(grepl("GM", RegioS)) %>%
+  filter(Leeftijd == 10000, Marges== "MW00000")
+```
+
+I would like to add the following data to our data set.
+
+
+
+```{r, echo=TRUE}
+HM3 <- HM2 %>%
+  select(Gemeente, ErvarenGezondheidGoedZeerGoed_1, EenOfMeerLangdurigeAandoeningen_2, NormaalGewicht_9, VoldoetAanFitnorm_14, UrenMantelzorgPerWeek_19, WekelijkseSporters_16)
+
+str(HM3)
+```
+
+
+I will make the variables numeric.
+
+```{r, echo=TRUE}
+HM3$ErvarenGezondheidGoedZeerGoed_1 <- as.numeric(as.character(HM3$ErvarenGezondheidGoedZeerGoed_1))
+HM3$EenOfMeerLangdurigeAandoeningen_2 <- as.numeric(as.character(HM3$EenOfMeerLangdurigeAandoeningen_2))
+HM3$NormaalGewicht_9 <- as.numeric(as.character(HM3$NormaalGewicht_9))
+HM3$VoldoetAanFitnorm_14 <- as.numeric(as.character(HM3$VoldoetAanFitnorm_14))
+HM3$UrenMantelzorgPerWeek_19 <- as.numeric(as.character(HM3$UrenMantelzorgPerWeek_19))
+HM3$WekelijkseSporters_16 <- as.numeric(as.character(HM3$WekelijkseSporters_16))
+```
+Now I can merge the Health Monitor data with the rest of our data.
+
+```{r, echo=TRUE}
+
+data3 <- left_join(data2, HM3, by= "Gemeente")
+
+str(data3)
+```
+
+
+\newpage
+### Rijkswaterstaat 
+On September 27th, 2018 I have downloaded the data about "CO2 emissions"  from [Rijkswaterstaat](https://klimaatmonitor.databank.nl/Jive)
+
+```{r, echo=TRUE}
+RWS <- read.csv2("../Datacleaning/sourcedata/Rijkswaterstaat/CO2.csv", sep =",")
+str(RWS)
+```
+Since in our data set the column containing the Municipalities is called "Gemeente" and in the data set from "Rijkswaterstaat" is called "Gemeenten" we have to change the name before we can merge it with our data set.
+```{r, echo=TRUE}
+
+colnames(RWS)[colnames(RWS)=="Gemeenten"] <- "Gemeente"
+
+rijkswaterstaat1 <- RWS
+str(RWS)
+```
+Now we can merge the data from "Rijkswaterstaat" with our previous made data set so that we have one final data set to work with. 
+```{r, echo=TRUE}
+data4 <- left_join(data3, rijkswaterstaat1, by= "Gemeente")
+```
+
+
+
+
+Finally we will save data4 as a csv file.
+
+```{r, echo=TRUE}
+write.csv2(data4, "../Datacleaning/Sourcedata/Analysis/Datafile.csv")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+# Appendix 3: Regression Health Status
+
+
+```{r, results='asis'}
+lm3 <- lm(Health_status_very_good ~  . -House_density -Total_over80 -Onepers_HH -Inc_SM -LEtotalpop -Householdsize -Migration, data = d2)
+
+stargazer(lm3, header = FALSE, type="latex", single.row = TRUE,  title = "Results of linear regression of health status on other variables")
+```
+
+\newpage 
+# Appendix 4: Logboek {-}
+
+
+
+\begin{table}[ht]
+\caption{Logboek profielwerkstuk Arvid Mikkers}
+\center
+\label{my-label}
+\begin{tabular}{|l|p{12cm}|r|}
+\hline
+\textbf{Datum}      & \textbf{Activiteit}                                                                                                                         & \textbf{Duur in uren}                                                            \\ \hline
+14-05-2018 & \begin{tabular}[c]{@{}l@{}}Overleg met dr. Gertjan Verhoeven\\ Reistijd\end{tabular}                                               & \begin{tabular}[c]{@{}l@{}}1\\ 2\end{tabular}             \\ \hline
+Juni 2018  & \begin{tabular}[c]{@{}l@{}}Cursussen R op Datacamp\\ Introduction to R\\ Introduction to Tidyverse\end{tabular}                    & 12                                                            \\ \hline
+19-07-2018 & \begin{tabular}[c]{@{}l@{}}Overleg met dr. Gerjan Verhoeven\\ Data zoeken en downloaden\\ Reistijd Ilpendam - Utrecht\end{tabular} & \begin{tabular}[c]{@{}l@{}}2\\ 8\\ 2 \end{tabular} \\ \hline
+20-07-2018 & Datacleaning                                                                                                                       & 7                                                             \\ \hline
+09-08-2018 & Datacleaning                                                                                                                       & 9                                                           \\ \hline
+01-10-2018 & \begin{tabular}[c]{@{}l@{}}Data analyse en visualisatie \\ Reistijd\end{tabular}                                                                                                          & \begin{tabular}[c]{@{}l@{}}8\\ 2 \end{tabular}                                                                 \\ \hline
+02-10-2018 & \begin{tabular}[c]{@{}l@{}}Data analyse en visualisatie \\ Reistijd\end{tabular}                                                                                                          & \begin{tabular}[c]{@{}l@{}}8\\ 2 \end{tabular}     \\ \hline
+03-10-2018 & Data analyse en visualisatie                                                                                                                       & 4                                                           \\ \hline
+07-10-2018 & Data analyse en visualisatie                                                                                                                       & 4                                                           \\ \hline
+
+14-10-2018 & Data analyse en visualisatie                                                                                                                       & 6                                                          \\ \hline
+
+17-10-2018 & Schrijven                                                                                                                       & 2                                                         \\ \hline
+20-10-2018 & Schrijven                                                                                                                       & 4                                                         \\ \hline
+21-10-2018 & Schrijven                                                                                                                       & 5                                                         \\ \hline
+22-10-2018 & Schrijven                                                                                                                       & 5                                                         \\ \hline
+23-10-2018 & Schrijven                                                                                                                       & 9                                                         \\ \hline
+24-10-2018 & Schrijven                                                                                                                       & 4                                                        \\ \hline
+25-10-2018 & Schrijven                                                                                                                       & 8                                                        \\ \hline
+
+26-10-2018 & Tekst eerste concept controleren                                                                                                                       & 3                                                        \\ \hline
+26-10-2018 & Tekst eerste concept controleren                                                                                                                       & 5                                                        \\ \hline
+
+26-10-2018 & Tekst controleren en laatste check                                                                                                                       & 2                                                        \\ \hline
+
+\textbf{Totaal} &                                             &  124           \\ \hline
+
+
+\end{tabular}
+\end{table}
+
+\newpage
+
+# References {-}
+

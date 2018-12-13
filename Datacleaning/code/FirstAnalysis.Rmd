@@ -1,0 +1,701 @@
+---
+title: "First analysis"
+author: "Arvid Mikkers"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Packages
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse) # for data manipulation and plots
+library(PerformanceAnalytics) # for correlation plots
+library(thematicmaps)# for maps
+library(corrr) # for network graphs of variables
+library(ggrepel) # for names in graphs
+library(glmnet) # for lasso 
+library(car) # to check for multicollinearity
+library(caret) # for machine learning
+```
+
+# Data
+
+```{r}
+d1 <- read.csv2("../Sourcedata/Analysis/Datafile.csv")
+str(d1)
+```
+
+
+# Map
+
+Since we are interested in the variation in life expectancy, we will first make a map.
+
+To create maps we need polygon-data (data describing the polygons that constitute the map expressed in _x_ and _y_ coordinates). It is possible to buy this data from commercial parties, but more and more polygon data are published as open source data. For this thesis we used open source data from the CBS (central bureau of statitics in the Netherlands) and [Imergis](http://www.imergis.nl/asp/47.asp). Mark Klik (NZa) converted the polygon data to _csv_ format.
+
+For our first basic map, we need some data about the Netherlands. The polygon data from municipalities were previously saved as a _csv_ in the folder "Sourcedata".
+
+```{r}
+map_municipal1 <- read.csv2("../Sourcedata/Map/nld_municipal_map.csv", stringsAsFactors = FALSE, dec = ".")
+head(map_municipal1)
+```
+
+
+## Some data problems solved:
+
+#### De Fryske Marren/De Friese Meren
+
+In the Imergis dataset with polygons, the municipality "De Friese Meren" is called "De Fryske Marren" in the RIVM/CBS data. We will change the Imergis dataset.
+
+
+### Mergers
+
+
+In the CBS/RIVM data the municipality "Berg en Dal" exists, this a merger between the municipalities Groesbeek, Millingen aan de Rijn and Ubbergen. 
+
+In the CBS/RIVM data the municipality "Gooise Meren" exists, this a merger between the municipalities Bussum, Naarden and Muiden.
+
+In the CBS/RIVM data the municipality "Krimpenerwaard" exists, this a merger between the municipalities  Nederlek, Ouderkerk, Vlist, Bergambacht and Schoonhoven.
+
+In the CBS/RIVM data the municipality "Nissewaard" exists, this a merger between the municipalities Spijkenisse and Bernisse.
+
+We will change the names of the merged municipalities in their new name.
+
+### Spelling
+
+One municipality is spelled differently:
+
+CBS/RIVM Nuenen, Gerwen en Nederwetten
+Imergis: Nuenen. Gerwen en Nederwetten
+
+We change the name to the CBS/RIVM name
+
+```{r}
+map_municipal <- map_municipal1 %>% 
+    mutate(name = replace(name, name == "De Friese Meren", "De Fryske Marren")) %>%
+    mutate(name = replace(name, name == "Groesbeek"| name == "Millingen aan de Rijn" | name == "Ubbergen", "Berg en Dal")) %>%
+  mutate(name = replace(name, name == "Bussum"| name == "Naarden" | name == "Muiden", "Gooise Meren")) %>%
+  mutate(name = replace(name, name == "Nederlek"| name == "Ouderkerk" | name == "Vlist" | name== "Bergambacht" | name == "Schoonhoven", "Krimpenerwaard")) %>%
+  mutate(name = replace(name, name == "Spijkenisse"| name == "Bernisse", "Nissewaard")) %>%
+  mutate(name = replace(name, name == "Nuenen. Gerwen en Nederwetten", "Nuenen, Gerwen en Nederwetten"))
+  
+```
+
+
+## Maps
+
+
+```{r}
+map_info <- d1 %>%
+    select(Gemeente, LEtotalpop)
+```
+
+
+
+We will use package `thematicmaps` to make a map of the Netherlands. The package `thematicmaps` is an extension to the `ggplot2` package.
+
+```{r}
+
+AddMapLayer(MapPlot(), map_municipal, map_info) +
+  guides(fill = guide_legend(title = "Life Expectancy at birth"))
+
+```
+
+```{r}
+map_info4 <- d1 %>%
+mutate( Hulp= ifelse(LEtotalpop>85,1,0))
+str(map_info4)
+```
+```{r}
+map_info5 <- map_info4 %>%
+  select(Gemeente, Hulp)
+```
+
+```{r}
+ AddMapLayer(MapPlot(), map_municipal, map_info5) +
+  guides(fill = guide_legend(title = "Life expectency over 85"))
+```
+
+
+
+```{r}
+map_info6 <- d1 %>%
+mutate( Hulp2= ifelse(LEtotalpop<80,1,0))
+str(map_info4)
+```
+
+
+```{r}
+map_info7 <- map_info6 %>%
+  select(Gemeente, Hulp2)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info7) +
+  guides(fill = guide_legend(title = "Life expectency under 80"))
+```
+
+
+
+
+```{r}
+map_info13 <- d1 %>%
+  select(Gemeente, LEmen)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info13) +
+  guides(fill = guide_legend(title = "Life expectency men"))
+```
+
+```{r}
+map_info14 <- d1 %>%
+  select(Gemeente, LEwomen)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info14) +
+  guides(fill = guide_legend(title = "Life expectency women"))
+```
+
+```{r}
+hulpmapinfo15 <- d1 %>%
+  mutate(Verschil.in.LE = (LEwomen - LEmen))
+```
+
+```{r}
+mapinfo15 <- hulpmapinfo15 %>%
+  select(Gemeente,  Verschil.in.LE)
+
+
+  
+
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, mapinfo15) 
+```
+
+
+```{r}
+map_info2 <- d1 %>%
+    select(Gemeente, Totaal.bekende.CO2.uitstoot.2016)
+```
+
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info2) +
+  guides(fill = guide_legend(title = "CO2 emission"))
+```
+```{r}
+d1a1 <- d1 %>%
+mutate(uitstoot.per.capita = (Totaal.bekende.CO2.uitstoot.2016/TotaleBevolking_1))
+```
+
+
+```{r}
+map_info2a <- d1a1 %>%
+    select(Gemeente, uitstoot.per.capita)
+```
+
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info2a) +
+  guides(fill = guide_legend(title = "CO2 emission per capita"))
+```
+
+
+
+
+
+```{r}
+map_info3 <- d1 %>%
+    select(Gemeente, WekelijkseSporters_16)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info3) +
+  guides(fill = guide_legend(title = "Percentage weakly sporters"))
+```
+```{r}
+map_info8 <- d1 %>%
+    select(Gemeente, GemiddeldeWoningwaarde_99)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info8) +
+  guides(fill = guide_legend(title = "Mean House value"))
+```
+```{r}
+map_info9 <- d1 %>%
+    select(Gemeente, AfstandTotZiekenhuis_216)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info9) +
+  guides(fill = guide_legend(title = "Distance to hospital"))
+```
+```{r}
+map_info10 <- d1 %>%
+    select(Gemeente, TotaleBevolking_1)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info10) +
+  guides(fill = guide_legend(title = "total Population"))
+```
+```{r}
+map_info11 <- d1 %>%
+    select(Gemeente, TotaalMetMigratieachtergrond_44)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info11) +
+  guides(fill = guide_legend(title = "population with migration background"))
+```
+
+```{r}
+map_info12 <- d1 %>%
+    select(Gemeente, Koopwoningen_94)
+```
+
+```{r}
+AddMapLayer(MapPlot(), map_municipal, map_info12) +
+  guides(fill = guide_legend(title = "House Ownership"))
+```
+#Graphs
+
+```{r}
+ ggplot(d1, aes(x=TotaleBevolking_1, y=LEtotalpop)) + geom_point()+ theme_classic() + xlab("Total population") + ylab("Life expectancy total population")
+```
+
+```{r}
+ ggplot(d1, aes(x=log(TotaleBevolking_1), y=LEtotalpop)) + geom_point() + theme_classic()+ xlab("Logarithm of the total population") + ylab("Life expectancy total population")
+```
+
+
+
+
+
+```{r}
+ggplot(d1, aes(x=k_80JaarOfOuder_21, y=LEtotalpop)) + geom_point()+geom_smooth(method = "lm") + theme_classic()+ xlab("Percentage of people older than 80") + ylab("Life expectancy total population")
+```
+```{r}
+ggplot(d1, aes(x=k_80JaarOfOuder_12, y=LEtotalpop)) + geom_point() + theme_classic()+ xlab("Number of people over 80") + ylab("Life expectancy total population")
+```
+
+```{r}
+ggplot(d1, aes(x=GemiddeldeWoningwaarde_99, y=LEtotalpop)) + geom_point() + geom_smooth(method = "lm") + theme_classic()+ xlab("Mean house value") + ylab("Life expectancy total population")
+```
+```{r}
+d_MHV <- d1 %>%
+  select(Gemeente, GemiddeldeWoningwaarde_99, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+```
+
+
+```{r}
+ggplot(d_MHV, aes(x=GemiddeldeWoningwaarde_99, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic() + xlab("Mean house value") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+
+
+
+
+```{r}
+ggplot(d_MHV, aes(x=log(GemiddeldeWoningwaarde_99), y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic()+ xlab("Logarithm of the Mean house value") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+```{r}
+d_LOP <- d1 %>%
+  select(Gemeente, LagerOpgeleidenPercentage_5, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+```
+
+
+
+```{r}
+ggplot(d_LOP, aes(x=LagerOpgeleidenPercentage_5, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic()+ xlab("Percentage lower educated") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+```{r}
+d_ISM <- d1 %>%
+  select(Gemeente, InkomenTot120SociaalMinimum_13, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+```
+
+
+```{r}
+ggplot(d_ISM, aes(x=InkomenTot120SociaalMinimum_13, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic()+ xlab("Income upto 120 percent of the social minimum") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+```{r}
+d_GGI <- d1 %>%
+  select(Gemeente, GemiddeldGestandaardiseerdInkomen_41, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+```
+
+
+```{r, warning= FALSE}
+ggplot(d_GGI, aes(x=GemiddeldGestandaardiseerdInkomen_41, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic()+ xlab("Mean standarised income") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+
+```{r}
+d_EGGZG <- d1 %>%
+  select(Gemeente, ErvarenGezondheidGoedZeerGoed_1, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+```
+
+
+```{r}
+ggplot(d_EGGZG, aes(x=ErvarenGezondheidGoedZeerGoed_1, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic() + xlab("Self-reported health: good/very good") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+```{r}
+d_TMMA <- d1 %>%
+  select(Gemeente, TotaalMetMigratieachtergrond_44, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+```
+
+
+```{r}
+ggplot(d_TMMA, aes(x=TotaalMetMigratieachtergrond_44, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic() + xlab("Percentage of people with a migration background") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+
+```{r}
+d_ATZ <- d1 %>%
+  select(Gemeente, AfstandTotZiekenhuis_216, LEmen, LEwomen) %>%
+  gather(Soort, LE, 3:4)
+```
+
+
+```{r}
+ggplot(d_ATZ, aes(x=AfstandTotZiekenhuis_216, y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") + theme_classic() + xlab("Distance to the nearest hospital") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+```{r}
+ggplot(d_ATZ, aes(x=log(AfstandTotZiekenhuis_216), y=LE, group=Soort, color= Soort)) + geom_point() + geom_smooth(method= "lm") +theme_classic()+ xlab("Logarithm of the distance to the nearest hospital") + ylab("Life expectancy") + scale_colour_manual(
+                       values=c("royalblue2", "firebrick2"), 
+                       name="Life expectancy",
+                       breaks=c("LEmen", "LEwomen"),
+                       labels=c("men", "women"))
+```
+
+
+
+
+
+
+
+
+# Collinearity
+
+```{r}
+d1a <- d1a1 %>%
+  select(-X, -Gemeente, -RegioS)
+
+
+str(d1a)
+```
+
+
+
+```{r}
+d1b <- d1a %>%
+  select(LE = LEtotalpop, Divorced= Gescheiden_32, Migrationsaldo = TotaalMetMigratieachtergrond_44, House_O = Koopwoningen_94, Mean_inc = GemiddeldGestandaardiseerdInkomen_41, Lower_edu = LagerOpgeleidenPercentage_5, Pop_density = Bevolkingsdichtheid_57, House_density = Woningdichtheid_93, Mean_HV = GemiddeldeWoningwaarde_99, Dist_Hosp = AfstandTotZiekenhuis_216, Inc_SM = InkomenTot120SociaalMinimum_13, onepers_HH = Percentage_eenpersoonshuishoudens, Health_status_very_good = ErvarenGezondheidGoedZeerGoed_1, Multi_morbidity = EenOfMeerLangdurigeAandoeningen_2, Normal_weight= NormaalGewicht_9, Fit_norm=VoldoetAanFitnorm_14, Informal_care=UrenMantelzorgPerWeek_19, Weekly_sporters = WekelijkseSporters_16, EmissionCO2=uitstoot.per.capita)
+```
+
+
+
+```{r}
+suppressWarnings(chart.Correlation(d1b))
+```
+
+
+
+
+```{r}
+d1b %>%
+  correlate() %>%
+  network_plot(min_cor = .5, repel= TRUE, curved = TRUE, legend = TRUE)
+````
+  
+  
+
+# Analysis
+
+
+
+```{r}
+
+d2 <- d1a1 %>%
+  select(-Gemeente,-gemeente, -X , -RegioS, -LEmen, -LEwomen, -uitstoot.per.capita, -Totaal.bekende.CO2.uitstoot.2016)
+
+```
+
+
+
+```{r}
+lm1 <- lm(LEtotalpop ~  ., data = d2)
+summary(lm1)
+```
+
+
+## Multicollinearity
+
+
+
+### VIF
+
+```{r}
+vif(lm1)
+```
+
+We exclude the variable with the highest VIF (Which Woningdichtheid_93) and then run a VIF again.
+
+
+```{r}
+lm1a <- lm(LEtotalpop ~  . -Woningdichtheid_93, data = d2)
+vif(lm1a)
+```
+
+As we see TotaleBevolking_1 now has a much smaller VIF. We will exclude k_80JaarOfOuder_12.
+
+```{r}
+lm1b <- lm(LEtotalpop ~  . -Woningdichtheid_93 -k_80JaarOfOuder_12 , data = d2)
+vif(lm1b)
+```
+
+Now we have to exclude Percentage_eenpersoonshuishoudens
+
+```{r}
+lm1c <- lm(LEtotalpop ~  . -Woningdichtheid_93 -k_80JaarOfOuder_12 -Percentage_eenpersoonshuishoudens , data = d2)
+vif(lm1c)
+
+```
+
+We have to exclude InkomenTot120SociaalMinimum_13
+
+```{r}
+lm1d <- lm(LEtotalpop ~  . -Woningdichtheid_93 -k_80JaarOfOuder_12 -Percentage_eenpersoonshuishoudens -InkomenTot120SociaalMinimum_13 , data = d2)
+vif(lm1d)
+```
+
+We have to exclude GemiddeldeHuishoudensgrootte_89
+
+```{r}
+lm1e <- lm(LEtotalpop ~  . -Woningdichtheid_93 -k_80JaarOfOuder_12 -Percentage_eenpersoonshuishoudens -InkomenTot120SociaalMinimum_13 -GemiddeldeHuishoudensgrootte_89, data = d2)
+vif(lm1e)
+
+```
+
+We have to exclude TotaalMetMigratieachtergrond_44
+
+```{r}
+lm1f <- lm(LEtotalpop ~  . -Woningdichtheid_93 -k_80JaarOfOuder_12 -Percentage_eenpersoonshuishoudens -InkomenTot120SociaalMinimum_13 -GemiddeldeHuishoudensgrootte_89 -TotaalMetMigratieachtergrond_44, data = d2)
+vif(lm1f)
+```
+
+
+
+```{r}
+lm2 <- lm(LEtotalpop ~  . -Woningdichtheid_93 -k_80JaarOfOuder_12 -Percentage_eenpersoonshuishoudens -InkomenTot120SociaalMinimum_13 -GemiddeldeHuishoudensgrootte_89 -TotaalMetMigratieachtergrond_44, data = d2)
+
+summary(lm2)
+```
+
+
+## Overfitting
+
+We need complete cases
+
+```{r}
+d2a <- d2 %>%
+  na.omit()
+
+```
+
+
+
+Split dataset in train and test set
+
+```{r}
+set.seed(123)
+trainIndex <- createDataPartition(d2a$LEtotalpop, p=.8,
+                                  list=FALSE,
+                                  times =1)
+
+df_train <- d2a[trainIndex,]
+df_test <- d2a[-trainIndex,]
+
+```
+
+Now we can train the model
+
+```{r}
+lmControl <- trainControl(method = "repeatedcv",
+                          number = 10,
+                          repeats = 5)
+
+lmreg <- train(LEtotalpop ~  . -Woningdichtheid_93 -k_80JaarOfOuder_12 -Percentage_eenpersoonshuishoudens -InkomenTot120SociaalMinimum_13 -GemiddeldeHuishoudensgrootte_89 -TotaalMetMigratieachtergrond_44,
+               data = df_train,
+               method = "lm",
+               trControl = lmControl)
+```
+
+
+```{r}
+print(lmreg)
+```
+
+And predict on the testset
+
+```{r}
+df_test <-df_test %>%
+mutate(predictionlm= predict(lmreg, df_test))
+```
+
+
+
+
+
+```{r}
+rfControl <- trainControl(method = "repeatedcv",
+                          number = 10,
+                          repeats = 5)
+
+rf <- train(LEtotalpop ~  . ,
+               data = df_train,
+               method = "ranger",
+               trControl = lmControl)
+
+print(rf)
+```
+
+
+```{r}
+df_test <-df_test %>%
+mutate(predictionrf= predict(rf, df_test))
+```
+
+
+
+
+Now we can make a plot of real values versus predicted values.
+
+```{r}
+ggplot(data= df_test, aes(x= LEtotalpop, y= predictionlm)) + geom_point(color= "green")+ geom_abline(slope = 1, intercept = 0) + geom_point(data=df_test, aes(x=LEtotalpop, y=predictionrf), color= "blue") +theme_classic()
+```
+
+
+
+
+
+
+### Lasso
+
+
+```{r}
+set.seed(123)
+d3 <- d2[complete.cases(d2),]  %>% select(-LEtotalpop)
+d4 <- d2[complete.cases(d2),]  %>% select(LEtotalpop)
+
+
+lasso <- cv.glmnet(x=as.matrix(d3),
+                   y=as.matrix(d4), 
+                   alpha=1)
+
+plot(lasso)
+```
+
+```{r}
+lasso$lambda.min
+
+lassobest <- glmnet(x=as.matrix(d3),
+                   y=as.matrix(d4), 
+                   alpha=1, lambda = lasso$lambda.min)
+
+predict(lassobest, type='coefficients', s=lasso$lambda.min)
+```
+```{r}
+d5<- d2[complete.cases(d2),] %>%
+  select( LEtotalpop, TotaalMetMigratieachtergrond_44, Bevolkingsdichtheid_57, Koopwoningen_94, AfstandTotZiekenhuis_216,GemiddeldGestandaardiseerdInkomen_41, InkomenTot120SociaalMinimum_13, LagerOpgeleidenPercentage_5,Percentage_eenpersoonshuishoudens, ErvarenGezondheidGoedZeerGoed_1)
+```
+ 
+ 
+```{r}
+lm2 <- lm(LEtotalpop ~  ., data = d5)
+summary(lm2)
+```
+```{r}
+suppressWarnings(chart.Correlation(d5))
+```
+
+```{r}
+d6 <- d5 %>%
+  select(-TotaalMetMigratieachtergrond_44,-InkomenTot120SociaalMinimum_13, -Percentage_eenpersoonshuishoudens)
+```
+
+
+```{r}
+suppressWarnings(chart.Correlation(d6))
+```
+
+```{r}
+d5 %>%
+  correlate() %>%
+  network_plot(min_cor = .5, repel= TRUE, curved = TRUE, legend = TRUE)
+````
+
+
+```{r}
+lm3 <- lm(LEtotalpop ~  ., data = d6)
+summary(lm3)
+```
+
+```{r}
+d6 %>%
+  correlate() %>%
+  network_plot(min_cor = .5, repel= TRUE, curved = TRUE, legend = TRUE)
+````
+
+
+

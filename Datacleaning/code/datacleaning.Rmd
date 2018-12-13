@@ -1,0 +1,304 @@
+---
+title: "Datacleaning"
+author: "Arvid Mikkers"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Packages
+
+We need the libabry tidyverse for data manipulation.
+
+
+```{r}
+library(tidyverse)
+```
+
+
+
+# Data
+
+## RIVM
+
+We have downloaded on July 19th, 2018 the data about life expectancy at birth from [RIVM](https://www.volksgezondheidenzorg.info/onderwerp/levensverwachting/regionaal-internationaal/bij-geboorte)
+
+We are interested in the LE for the total population.
+
+```{r}
+dataLE1 <- read.csv2("../sourcedata/RIVM/LE.csv") %>%
+  filter(Geslacht == "Totaal")%>%
+  select(Gemeente, Bij.geboorte)
+```
+
+```{r}
+  colnames(dataLE1)[colnames(dataLE1)=="Bij.geboorte"] <- "LEtotalpop"
+```
+
+```{r}
+dataLE2 <- read.csv2("../sourcedata/RIVM/LE.csv") %>%
+  filter(Geslacht == "Mannen")%>%
+  select(Gemeente, Bij.geboorte)
+```
+
+```{r}
+  colnames(dataLE2)[colnames(dataLE2)=="Bij.geboorte"] <- "LEmen"
+```
+
+
+```{r}
+dataLE3 <- read.csv2("../sourcedata/RIVM/LE.csv") %>%
+  filter(Geslacht == "Vrouwen")%>%
+  select(Gemeente, Bij.geboorte)
+```
+
+```{r}
+  colnames(dataLE3)[colnames(dataLE3)=="Bij.geboorte"] <- "LEwomen"
+```
+
+```{r}
+dataLE4 <- full_join(dataLE1, dataLE2, by = "Gemeente")
+```
+
+```{r}
+dataLE <- full_join(dataLE4, dataLE3, by = "Gemeente")
+```
+
+## CBS
+
+\newpage
+## Kerncijfers
+
+We have downloaded on July 19th, 2018 the data about "kerncijfers" plus metadata from [CBS](https://opendata.cbs.nl/statline/portal.html?_la=nl&_catalog=CBS&tableId=70072ned&_theme=271)
+
+```{r}
+kerncijfers <- read.csv2("../sourcedata/CBS/kerncijfers.csv") 
+  
+
+```
+
+The data contains information about different aggregation levels. We are interested in the data of the municipalities. The id's for municipalities contain the string "GM". We will filter the municipalities. There are many municipalities without population, we will select municipalities with population.
+
+```{r}
+kerncijfers2 <- kerncijfers %>%
+  filter(grepl("GM", RegioS)) %>%
+  filter(TotaleBevolking_1 != "NA")
+
+
+```
+
+The file `kerncijfers.csv` contains data per municipality about demographic characteristics. The data do not contain the names of the municipalities, but id's. To be able to merge these data with the RIVM data on life expecentancy, we will first produce a table with id's and names of municipalities from the metadata of the "kerncijfers". We need to rename TableInfos to RegioS and X to "Gemeente" to match the columns.
+
+```{r}
+MD_kerncijfers <- read.csv2("../sourcedata/CBS/metadata_kerncijfers.csv")
+
+```
+
+
+```{r}
+Merge_table <- MD_kerncijfers %>%
+  select(RegioS = TableInfos, Gemeente = X) %>%
+  filter(grepl("GM", RegioS))
+
+Merge_table$Gemeente <- as.character(Merge_table$Gemeente)
+
+str(Merge_table)
+```
+
+Now we can merge the `kerncijfers` with the `Merge_table`. First we will change the variable `RegioS` in the dataframes to be merged in to a character
+
+
+
+```{r}
+
+Merge_table$RegioS <- as.character(Merge_table$RegioS)
+kerncijfers2$RegioS <- as.character(kerncijfers2$RegioS)
+
+
+kerncijfers3 <- right_join(Merge_table, kerncijfers2, by="RegioS")
+
+```
+
+And finally we can merge `dataLE` with `kerncijfers3`
+First we willl change the variable `Gemeente` in to a character. 
+
+
+```{r}
+dataLE$Gemeente <- as.character(dataLE$Gemeente)
+kerncijfers3$Gemeente <- as.character(kerncijfers3$Gemeente)
+data1 <- inner_join(dataLE, kerncijfers3, by = "Gemeente")
+
+
+```
+
+\newpage
+### Data selection
+
+
+
+```{r}
+data1a <- data1 %>%
+ 
+  select(LEtotalpop, LEwomen, LEmen, Gemeente, Gescheiden_32, TotaalMetMigratieachtergrond_44, Bevolkingsdichtheid_57, GemiddeldeHuishoudensgrootte_89, Woningdichtheid_93 , Koopwoningen_94 , GemiddeldeWoningwaarde_99 ,  AfstandTotZiekenhuis_216, TotaleBevolking_1, k_80JaarOfOuder_21,k_80JaarOfOuder_12 )
+
+
+
+data1a$Gescheiden_32 <- as.numeric(as.character(data1a$Gescheiden_32))
+data1a$TotaalMetMigratieachtergrond_44 <- as.numeric(as.character(data1a$TotaalMetMigratieachtergrond_44))
+data1a$GemiddeldeHuishoudensgrootte_89 <- as.numeric(as.character(data1a$GemiddeldeHuishoudensgrootte_89))
+data1a$Koopwoningen_94 <- as.numeric(as.character(data1a$Koopwoningen_94))
+data1a$AfstandTotZiekenhuis_216 <- as.numeric(as.character(data1a$AfstandTotZiekenhuis_216))
+data1a$k_80JaarOfOuder_21 <- as.numeric(as.character(data1a$k_80JaarOfOuder_21))
+str(data1a)
+
+```
+
+\newpage
+## Gemeentefonds
+
+We need to add some information to the dataset about socio-economic factors (such as income, education and benefits).
+
+We have downloaded on July 19th, 2018 the data about "Gemeentefonds" plus metadata from [CBS](http://statline.cbs.nl/Statweb/publication/?DM=SLNL&PA=83440NED&D1=a&D2=1-390&HDR=G1&STB=T&VW=T)
+
+We need the variable `RegioS` to be able to merge. We will `filter` this variable for all observations containing ("GM")
+
+For Income we will select the average income and the percentage of low income people.
+For education we will take the percentage of lower educated people
+We also want to select the percentage of one person households. This variable is not available, but we will construct this variable from the number of households and the number of one person households.
+
+```{r}
+GF <- read.csv2("../sourcedata/CBS/gemeentefonds.csv")
+
+GF2 <- GF %>%
+  filter(grepl("GM", RegioS)) %>%
+  select(RegioS, GemiddeldGestandaardiseerdInkomen_41, InkomenTot120SociaalMinimum_13, LagerOpgeleidenPercentage_5, Huishoudens_32, Eenpersoonshuishoudens_44) %>%
+  mutate(Percentage_eenpersoonshuishoudens = (Eenpersoonshuishoudens_44/Huishoudens_32)*100)
+
+
+GF3 <- GF2 %>%
+  select(-Huishoudens_32, -Eenpersoonshuishoudens_44)
+
+GF3$GemiddeldGestandaardiseerdInkomen_41 <- as.numeric(as.character(GF3$GemiddeldGestandaardiseerdInkomen_41))
+GF3$InkomenTot120SociaalMinimum_13 <- as.numeric(as.character(GF3$InkomenTot120SociaalMinimum_13))
+GF3$LagerOpgeleidenPercentage_5 <- as.numeric(GF3$LagerOpgeleidenPercentage_5)
+
+str(GF3)
+```
+
+Now we can merge `GF3` with `Merge_table`, we need to change `RegioS` in to a character.
+And GF4 with `data1`, we need to change `Gemeente` in to a character.
+
+```{r}
+
+GF3$RegioS <- as.character(GF3$RegioS)
+
+
+GF4 <-right_join(Merge_table, GF3, by="RegioS")
+
+GF4$gemeente <- as.character(GF4$Gemeente)
+data2 <- left_join(data1a, GF4, by= "Gemeente")
+
+```
+
+\newpage
+## Health monitor
+
+We have downloaded on July 19th, 2018 the data about the health plus metadata from [CBS](https://opendata.cbs.nl/statline/portal.html?_la=nl&_catalog=CBS&tableId=83674NED&_theme=312)
+
+```{r}
+HM <- read.csv2("../sourcedata/CBS/health_monitor.csv")
+summary(HM$Perioden)
+```
+We add the names of the municipalities to our table instead of the ID's the CBS uses.
+```{r}
+HM$RegioS <- as.character(HM$RegioS)
+
+
+HM2 <- full_join(Merge_table,HM , by="RegioS") %>%
+ filter(grepl("GM", RegioS)) %>%
+  filter(Leeftijd == 10000, Marges== "MW00000")
+```
+
+We would like to  add the following data to our dataset
+
+
+
+```{r}
+HM3 <- HM2 %>%
+  select(Gemeente, ErvarenGezondheidGoedZeerGoed_1, EenOfMeerLangdurigeAandoeningen_2, NormaalGewicht_9, VoldoetAanFitnorm_14, UrenMantelzorgPerWeek_19, WekelijkseSporters_16)
+
+str(HM3)
+```
+
+
+We will make the variables numeric
+
+```{r}
+HM3$ErvarenGezondheidGoedZeerGoed_1 <- as.numeric(as.character(HM3$ErvarenGezondheidGoedZeerGoed_1))
+HM3$EenOfMeerLangdurigeAandoeningen_2 <- as.numeric(as.character(HM3$EenOfMeerLangdurigeAandoeningen_2))
+HM3$NormaalGewicht_9 <- as.numeric(as.character(HM3$NormaalGewicht_9))
+HM3$VoldoetAanFitnorm_14 <- as.numeric(as.character(HM3$VoldoetAanFitnorm_14))
+HM3$UrenMantelzorgPerWeek_19 <- as.numeric(as.character(HM3$UrenMantelzorgPerWeek_19))
+HM3$WekelijkseSporters_16 <- as.numeric(as.character(HM3$WekelijkseSporters_16))
+```
+Now we can merge the Health Monitor Data with the rest of our data.
+
+```{r}
+
+data3 <- left_join(data2, HM3, by= "Gemeente")
+
+str(data3)
+```
+
+
+\newpage
+## Rijkswaterstaat 
+We have downloaded on September 27th, 2018 the data about "CO2 emssions"  from [Rijkswaterstaat](https://klimaatmonitor.databank.nl/Jive)
+
+```{r}
+RWS <- read.csv2("../sourcedata/Rijkswaterstaat/CO2.csv", sep =",")
+str(RWS)
+```
+Since in our dataset the column containing the Municipalities is called "Gemeente" and in the datset from "Rijkswaterstaat" is called "Gemeenten" we have to change the name before we can merge it with our dataset.
+```{r}
+
+colnames(RWS)[colnames(RWS)=="Gemeenten"] <- "Gemeente"
+
+rijkswaterstaat1 <- RWS
+str(RWS)
+```
+Now we can merge the data from "Rijkswaterstaat" with our previous made dataset so that we have one finaldataset to work with. 
+```{r}
+data4 <- left_join(data3, rijkswaterstaat1, by= "Gemeente")
+```
+
+
+
+
+Finally we will save data4 as cvs
+
+```{r}
+write.csv2(data4, "../Sourcedata/Analysis/Datafile.csv")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,829 @@
+TableInfos;;;;;;;;;;;;;;;;;;;;
+ID;Title;ShortTitle;Identifier;Summary;Modified;ReasonDelivery;ExplanatoryText;Language;Catalog;Frequency;Period;ShortDescription;Description;DefaultPresentation;DefaultSelection;GraphTypes;OutputStatus;Source;MetaDataModified;SearchPriority
+0;"Gezondheidsmonitor; bevolking 19 jaar of ouder, regio, 2016";"Gezondheidsmonitor; regio, 2016";83674NED;"Gezondheid, aandoeningen, beperkingen, overgewicht, lichamelijke 
+activiteit/bewegingsnormen en mantelzorg, naar regio. ";2017-11-01T02:00:00;Herontwerp;De tabel is uitgebreid met cijfers per gemeente.;nl;CBS;Eenmalig;2016;"
+De Gezondheidsmonitor wordt eens in de vier jaar uitgevoerd en levert informatie over de gezondheid, sociale situatie en leefstijl van de Nederlandse bevolking van 19 jaar of ouder woonachtig in particuliere huishoudens. De cijfers zijn uit te splitsen naar leeftijdsgroep en naar GGD-regio en (vanaf november 2017) ook naar gemeente. De cijfers zijn voorzien van betrouwbaarheidsintervallen. Dit onderzoek is een samenwerkingsverband tussen GGD-en, RIVM en CBS.
+De tabel toont niet alle uitkomsten van de Gezondheidsmonitor. Alleen onderwerpen waarover zowel het CBS als de GGD-en informatie hebben verzameld zijn opgenomen. Informatie over onderwerpen waarover alleen de GGD-en informatie hebben verzameld is te vinden via paragraaf 5 van deze toelichting. 
+
+Deze Gezondheidsmonitorcijfers kunnen niet zonder meer vergeleken worden met cijfers uit de CBS-Gezondheidsenquête, doordat er tussen beide onderzoeken methodologische verschillen bestaan. De Gezondheidsmonitor geeft (eens per 4 jaar) inzicht in landelijke, regionale en lokale cijfers en richt zich op de bevolking van 19 jaar of ouder. De CBS-Gezondheidsenquête biedt jaarlijkse, landelijke cijfers en richt zich op de bevolking van alle leeftijden. 
+
+Gegevens beschikbaar vanaf: 2016 
+
+Status van de cijfers: 
+De cijfers in deze tabel zijn definitief.
+
+Wijzigingen per 1 november 2017
+De tabel is uitgebreid met cijfers per gemeente.
+
+Wijzigingen per 15 augustus 2017
+Door een onjuiste koppeling van gegevens bij de GGD Flevoland bleken de cijfers over de variabelen binnen de onderwerpen lichamelijke activiteit, mantelzorg geven en mantelzorg ontvangen, 65 jaar of ouder, voor de GGD-regio Flevoland onjuist. Dit werkte ook door in de uitkomsten over de provincie, het landsdeel en Nederland totaal. Dit is in deze versie gecorrigeerd.
+
+Wanneer komen er nieuwe cijfers?
+Deze tabel wordt niet meer aangevuld.
+";"INHOUDSOPGAVE
+
+1. Toelichting
+2. Definities en verklaring van symbolen
+3. Koppelingen naar relevante tabellen en artikelen
+4. Bronnen en methoden
+5. Meer informatie 
+
+1. TOELICHTING
+
+De Gezondheidsmonitor wordt eens in de vier jaar uitgevoerd en levert informatie over de gezondheid, sociale situatie en leefstijl van de Nederlandse bevolking van 19 jaar of ouder woonachtig in particuliere huishoudens. De cijfers zijn uit te splitsen naar leeftijdsgroep en naar GGD-regio en (vanaf november 2017) ook naar gemeente. De cijfers zijn voorzien van betrouwbaarheidsintervallen. Dit onderzoek is een samenwerkingsverband tussen GGD-en, RIVM en CBS.
+De tabel toont niet alle uitkomsten van de Gezondheidsmonitor. Alleen onderwerpen waarover zowel het CBS als de GGD-en informatie hebben verzameld zijn opgenomen. Informatie over onderwerpen waarover alleen de GGD-en informatie hebben verzameld is te vinden via paragraaf 5 van deze toelichting. 
+
+Deze Gezondheidsmonitorcijfers kunnen niet zonder meer vergeleken worden met cijfers uit de CBS-Gezondheidsenquête, doordat er tussen beide onderzoeken methodologische verschillen bestaan. De Gezondheidsmonitor geeft (eens per 4 jaar) inzicht in landelijke, regionale en lokale cijfers en richt zich op de bevolking van 19 jaar of ouder. De CBS-Gezondheidsenquête biedt jaarlijkse, landelijke cijfers en richt zich op de bevolking van alle leeftijden. 
+
+Gegevens beschikbaar vanaf: 2016 
+
+Status van de cijfers: 
+De cijfers in deze tabel zijn definitief.
+
+Wijzigingen per 1 november 2017
+De tabel is uitgebreid met cijfers per gemeente.
+
+Wijzigingen per 15 augustus 2017
+Door een onjuiste koppeling van gegevens bij de GGD Flevoland bleken de cijfers over de variabelen binnen de onderwerpen lichamelijke activiteit, mantelzorg geven en mantelzorg ontvangen, 65 jaar of ouder, voor de GGD-regio Flevoland onjuist. Dit werkte ook door in de uitkomsten over de provincie, het landsdeel en Nederland totaal. Dit is in deze versie gecorrigeerd.
+
+Wanneer komen er nieuwe cijfers?
+Deze tabel wordt niet meer aangevuld.
+
+2. DEFINITIES EN VERKLARING VAN SYMBOLEN
+
+Definities:
+
+Particulier huishouden
+Eén of meer personen die samen een woonruimte bewonen en zichzelf daar niet-bedrijfsmatig voorzien in de dagelijkse levensbehoeften.
+
+Verklaring van symbolen:
+
+niets (blanco) : het cijfer kan op logische gronden niet voorkomen
+. : het cijfer is onbekend, onvoldoende betrouwbaar of geheim
+* : voorlopige cijfers
+** : nader voorlopige cijfers
+
+3. KOPPELINGEN NAAR RELEVANTE TABELLEN EN ARTIKELEN
+
+Relevante tabellen:
+
+De uitkomsten van de Gezondheidsmonitor 2012 staan in de volgende tabel:
+<a href='http://statline.cbs.nl/Statweb/publication/?VW=T&DM=SLNL&PA=82166NED&D1=0-1,23,27,30,33,36-37&D2=a&D3=0&D4=0,16,126,128,133,158,192,197,215,223,348,416-443&D5=l&HD=170105-0826&HDR=T,G2&STB=G1,G3,G4'>Gezondheidsmonitor; regio, 19 jaar of ouder, 2012</a>
+
+De uitkomsten van de CBS-Gezondheidsenquête staan in de volgende tabellen:
+<a href='http://statline.cbs.nl/Statweb/publication/?VW=T&DM=SLNL&PA=83005NED&D1=0,2,39,41,44-46&D2=0-13&D3=a&D4=a&HD=170105-0831&HDR=T,G3&STB=G1,G2'>Gezondheid en zorggebruik; persoonskenmerken</a>
+<a href='http://statline.cbs.nl/Statweb/publication/?VW=T&DM=SLNL&PA=83021NED&D1=42,44,47,50-51,99-101&D2=0-13&D3=a&D4=a&HD=170105-0833&HDR=T,G3&STB=G1,G2'>Leefstijl en (preventief) gezondheidsonderzoek; persoonskenmerken</a>
+
+Relevante artikelen:
+<a href='https://www.cbs.nl/nl-nl/nieuws/2017/19/regionale-verschillen-in-gezondheid '>Regionale verschillen in gezondheid</a>
+
+4. BRONNEN EN METHODEN
+
+De onderzoeksmethode van deze tabel is te vinden in de korte onderzoeksbeschrijving <a href='https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/gezondheidsmonitor-2016 '>Gezondheidsmonitor 2016 </a>
+
+5. MEER INFORMATIE
+
+Bij het digitale <a href='https://www.ggdghorkennisnet.nl/loket-monitors-gezondheid'>loket Gezondheidsmonitors</a>, beheerd door GGD-GHOR, kunt u data of cijfers aanvragen uit de Gezondheidsmonitors voor onderzoek en beleid op zowel lokaal als landelijk niveau.
+De resultaten van zowel de CBS-GGD vragenset als de GGD-vragenset worden gepubliceerd op <a href='http://www.volksgezondheidenzorg.info/'>www.volksgezondheidenzorg.info</a>.
+
+<a href='https://www.cbs.nl/nl-nl/over-ons/contact/infoservice'>Infoservice</a>
+
+Copyright (c) Centraal Bureau voor de Statistiek, Den Haag/Heerlen 
+Verveelvoudiging is toegestaan, mits CBS als bron wordt vermeld.
+
+";graphtype=Table&r=Leeftijd,RegioS&k=Topics&t=Marges,Perioden&_gu=PV;$filter=((Leeftijd eq '10000') or (Leeftijd eq '53155') or (Leeftijd eq '80200')) and ((Marges eq 'MW00000')) and ((Perioden eq '2016JJ00')) and ((RegioS eq 'NL01  ') or (RegioS eq 'GM0363') or (RegioS eq 'GM0202') or (RegioS eq 'GM0106') or (RegioS eq 'GM0518') or (RegioS eq 'GM0014') or (RegioS eq 'GM0392') or (RegioS eq 'GM0796') or (RegioS eq 'GM0080') or (RegioS eq 'GM0995') or (RegioS eq 'GM0935') or (RegioS eq 'GM0687') or (RegioS eq 'GM0344') or (RegioS eq 'GM0193') or (substringof('PV',RegioS)))&$select=Leeftijd, Marges, Perioden, RegioS, ErvarenGezondheidGoedZeerGoed_1, EenOfMeerLangdurigeAandoeningen_2, BeperktVanwegeProblemenMetGezondheid_3, EenOfMeerLichamelijkeBeperkingen_4, Overgewicht_10, VoldoetAanNormGezondBewegen_13, Mantelzorger_17, Mantelzorgontvanger_20;Table,Bar,Map;Regulier;&copy GGD, RIVM, CBS,;2017-11-01T02:00:00;2
+DataProperties;;;;;;;;;;;;;;;;;;;;
+ID;Position;ParentID;Type;Key;Title;Description;ReleasePolicy;Datatype;Unit;Decimals;Default;;;;;;;;;
+0;0;;Dimension;Leeftijd;Leeftijd;;;;;;;;;;;;;;;
+1;1;;Dimension;Marges;Marges;;;;;;;;;;;;;;;
+2;2;;GeoDimension;RegioS;Regio's;;;;;;;;;;;;;;;
+3;3;;TimeDimension;Perioden;Perioden;;true;;;;;;;;;;;;;
+4;4;;Topic;ErvarenGezondheidGoedZeerGoed_1;Ervaren gezondheid (goed/zeer goed);Percentage personen met antwoordcategorie 'zeer goed' of 'goed' op de vraag naar de algemene gezondheidstoestand.;;Double;%;1;Missing;;;;;;;;;
+5;5;;Topic;EenOfMeerLangdurigeAandoeningen_2;Eén of meer langdurige aandoeningen;Percentage personen met de antwoordcategorie 'ja' op de vraag: Heeft u één of meer langdurige ziekten of aandoeningen? Langdurig is (naar verwachting) 6 maanden of langer.;;Double;%;1;Missing;;;;;;;;;
+6;6;;Topic;BeperktVanwegeProblemenMetGezondheid_3;Beperkt vanwege problemen met gezondheid;Percentage personen dat vanwege problemen met de gezondheid sinds 6 maanden of langer beperkt is in activiteiten die mensen gewoonlijk doen. Deze internationaal gebruikte en afgestemde indicator voor gezondheidsbeperking wordt de GALI-indicator genoemd. GALI staat voor Global Activity Limitation Indicator. ;;Double;%;1;Missing;;;;;;;;;
+7;;;TopicGroup;;Functiebeperkingen;"Beperkingen volgens de OESO-indicator. De OESO-indicator (Organisatie voor Economische Samenwerking en Ontwikkeling) is gebaseerd op vragen over de volgende 7 vaardigheden:
+1. Een gesprek volgen in een groep van drie of meer personen (zo nodig met hoorapparaat)
+2. Met één andere persoon een gesprek voeren (zo nodig met hoorapparaat)
+3. Kleine letters in de krant lezen (zo nodig met bril of contactlenzen)
+4. Op een afstand van 4 meter het gezicht van iemand herkennen (zo nodig met bril of contactlenzen)
+5. Een voorwerp van 5 kilo, bijv. een volle boodschappentas 10 meter dragen
+6. Rechtop staand kunnen bukken en iets van de grond oppakken
+7. 400 meter aan een stuk lopen zonder stil te staan (zo nodig met stok)
+Antwoordcategorieën op deze vragen zijn: zonder moeite; met enige moeite; met grote moeite; kan niet. Een respondent heeft een beperking als hij of zij op minstens één van de 7 vragen met 'kan niet' of 'met grote moeite' antwoordt.
+";;;;;;;;;;;;;;
+8;7;7;Topic;EenOfMeerLichamelijkeBeperkingen_4;Eén of meer lichamelijke beperkingen;Percentage personen met minstens 1 OESO-beperking. Een respondent heeft een beperking als hij of zij op minstens één van de 7 vragen met 'kan niet' of 'met grote moeite' antwoordt.;;Double;%;1;Missing;;;;;;;;;
+9;;7;TopicGroup;;Soort beperking;;;;;;;;;;;;;;;
+10;8;9;Topic;BeperkingInHoren_5;Beperking in horen;Percentage personen met de antwoordcategorie 'ja, met grote moeite' of 'nee, dat kan ik niet' op minstens 1 van de vragen naar beperkingen in horen (volgens de OESO indicator).;;Double;%;1;Missing;;;;;;;;;
+11;9;9;Topic;BeperkingInZien_6;Beperking in zien;Percentage personen met de antwoordcategorie 'ja, met grote moeite' of 'nee, dat kan ik niet' op minstens 1 van de vragen naar beperkingen in zien (volgens de OESO indicator).;;Double;%;1;Missing;;;;;;;;;
+12;10;9;Topic;BeperkingInBewegen_7;Beperking in bewegen;Percentage personen met de antwoordcategorie 'ja, met grote moeite' of 'nee, dat kan ik niet' op minstens 1 van de vragen naar beperkingen in bewegen (volgens de OESO indicator).;;Double;%;1;Missing;;;;;;;;;
+13;;;TopicGroup;;Onder- en overgewicht;"Een maat voor onder- of overgewicht is de Body Mass Index (BMI). Het is het quotiënt van het gewicht in kilogrammen en het kwadraat van de lengte in meters [kg/m2]. Het is een algemeen aanvaarde maat voor het bepalen van onder- en overgewicht.
+De criteria luiden als volgt:
+BMI < 18,5 kg/m2 = ondergewicht
+BMI 18,5 kg/m2 tot 25,0 kg/m2 = normaal gewicht
+BMI >= 25,0 kg/m2 = overgewicht
+BMI 25,0 kg/m2 tot 30,0 kg/m2 = matig overgewicht
+BMI >= 30,0 kg/m2 = ernstig overgewicht (obesitas)
+";;;;;;;;;;;;;;
+14;11;13;Topic;Ondergewicht_8;Ondergewicht;"Percentage personen met een BMI van minder dan 18,5 kg/m2.
+
+";;Double;%;1;Missing;;;;;;;;;
+15;12;13;Topic;NormaalGewicht_9;Normaal gewicht;"Percentage personen met een BMI vanaf 18,5 tot 25,0 kg/m2.
+
+";;Double;%;1;Missing;;;;;;;;;
+16;13;13;Topic;Overgewicht_10;Overgewicht ;"Percentage personen met een BMI van 25,0 kg/m2 en hoger.
+
+";;Double;%;1;Missing;;;;;;;;;
+17;;13;TopicGroup;;Mate van overgewicht;"Een maat voor onder- of overgewicht is de Body Mass Index (BMI). Het is het quotiënt van het gewicht in kilogrammen en het kwadraat van de lengte in meters [kg/m2]. Het is een algemeen aanvaarde maat voor het bepalen van onder- en overgewicht.
+De criteria luiden als volgt: 
+BMI < 18,5 kg/m2 = ondergewicht 
+BMI 18,5 kg/m2 tot 25,0 kg/m2 = normaal gewicht
+BMI >= 25,0 kg/m2 = overgewicht
+BMI 25,0 kg/m2 tot 30,0 kg/m2 = matig overgewicht
+BMI >= 30,0 kg/m2 = ernstig overgewicht
+";;;;;;;;;;;;;;
+18;14;17;Topic;MatigOvergewicht_11;Matig overgewicht;"Percentage personen met een BMI vanaf 25,0 kg/m2 tot 30,0 kg/m2.
+
+";;Double;%;1;Missing;;;;;;;;;
+19;15;17;Topic;ErnstigOvergewicht_12;Ernstig overgewicht;Percentage personen met een BMI van 30,0 kg/m2 en hoger.;;Double;%;1;Missing;;;;;;;;;
+20;;;TopicGroup;;Lichamelijke activiteit;"In de Gezondheidsmonitor Volwassenen en Ouderen 2016 is de zogeheten Short Questionnaire to Assess Health enhancing physical activity (SQUASH) opgenomen. Deze vragenlijst is ontwikkeld door het RIVM (Rijksinstituut voor Volksgezondheid en Milieu) en beoogt een volledig beeld te leveren van de lichamelijke activiteit. Gevraagd wordt naar frequentie, duur en intensiteit van de volgende deelvormen van lichamelijke activiteit:
+1. Activiteiten in woon-werk of woon-school verkeer,
+2. Activiteiten op het werk of op school,
+3. Activiteiten in het huishouden,
+4. Sporten,
+5. Andere vrijetijdsactiviteiten.
+";;;;;;;;;;;;;;
+21;16;20;Topic;VoldoetAanNormGezondBewegen_13;Voldoet aan norm gezond bewegen;"Percentage personen dat voldoet aan de Nederlandse Norm Gezond Bewegen.
+De Nederlandse norm is gebaseerd op MET-waarden: 1 MET komt overeen met het energieverbruik van rustig zitten en 5 MET komt overeen met een energieverbruik van 5 maal dit rustmetabolisme.
+Volgens deze norm moeten jongeren van 12 tot 18 jaar dagelijks minimaal een uur matig intensieve lichamelijke activiteit (MET-waarde = 5) verrichten, bijvoorbeeld aerobics of hardlopen.
+Personen vanaf 18 jaar dienen minimaal een half uur matig intensieve activiteit te verrichten op ten minste vijf dagen van de week.
+Voor personen van 18 tot 55 jaar geldt dat de MET-waarde = 4 moet zijn, bijvoorbeeld: stevig wandelen of fietsen.
+Voor 55 plussers is het voldoende als de MET-waarde = 3 bedraagt, bijvoorbeeld: normaal wandelen of fietsen.
+Het cijfer is samengesteld aan de hand van de standaardtabel van (leeftijdsspecifieke) intensiteitswaarden per activiteit en de bijbehorende opgaven van de tijdsduren en aantal weekdagen.
+";;Double;%;1;Missing;;;;;;;;;
+22;17;20;Topic;VoldoetAanFitnorm_14;Voldoet aan fitnorm;"Percentage personen dat voldoet aan de Fitnorm.
+Om aan de Fitnorm te voldoen moet een persoon ten minste drie keer per week gedurende minimaal 20 minuten zwaar intensieve lichamelijke activiteit verrichten.
+";;Double;%;1;Missing;;;;;;;;;
+23;18;20;Topic;VoldoetAanTenMinste1Bewegingsnorm_15;Voldoet aan ten minste 1 bewegingsnorm;Percentage personen dat voldoet aan de Nederlandse Norm Gezond Bewegen en/of de Fitnorm.;;Double;%;1;Missing;;;;;;;;;
+24;19;20;Topic;WekelijkseSporters_16;Wekelijkse sporters;Percentage personen dat minimaal 1 keer per week sport.;;Double;%;1;Missing;;;;;;;;;
+25;;;TopicGroup;;Mantelzorg geven;Mantelzorg  is zorg die iemand geeft aan een bekende uit zijn of haar omgeving, zoals een partner, kind of vriend, als deze persoon voor langere tijd ziek, hulpbehoevend of gehandicapt is. De mantelzorg kan bestaan uit het huishouden doen, wassen en aankleden, gezelschap houden, vervoer, geldzaken regelen enzovoort. Mantelzorg wordt niet betaald. Een vrijwilliger vanuit een vrijwilligerscentrale is geen mantelzorger.;;;;;;;;;;;;;;
+26;20;25;Topic;Mantelzorger_17;Mantelzorger;Percentage personen dat mantelzorg geeft. De mantelzorg moet daarbij al minimaal 3 maanden duren, of het moet gaan om minimaal 8 uur zorg per week.;;Double;%;1;Missing;;;;;;;;;
+27;21;25;Topic;ZwaarBelasteMantelzorgers_18;Zwaar belaste mantelzorgers;Percentage mantelzorgers dat aangeeft zich door die zorg 'tamelijk zwaar belast', 'zeer zwaar belast' of 'overbelast' te voelen.;;Double;%;1;Missing;;;;;;;;;
+28;22;25;Topic;UrenMantelzorgPerWeek_19;Uren mantelzorg per week;Het gemiddeld aantal uren mantelzorg dat per week wordt verleend door een mantelzorger.;;Double;aantal;1;Missing;;;;;;;;;
+29;;;TopicGroup;;Mantelzorg ontvangen, 65 jaar of ouder;"Mantelzorg  is zorg die iemand krijgt van een bekende uit zijn of haar omgeving, zoals een partner, kind of vriend, als iemand voor langere tijd ziek, hulpbehoevend of gehandicapt is. De mantelzorg kan bestaan uit het huishouden doen, wassen en aankleden, gezelschap houden, vervoer, geldzaken regelen enzovoort. Mantelzorg wordt niet betaald. Een vrijwilliger vanuit een vrijwilligerscentrale is geen mantelzorger.
+De cijfers uit de Gezondheidsmonitor Volwassenen en Ouderen 2016 die gaan over het ontvangen van mantelzorg hebben alleen betrekking op personen van 65 jaar of ouder.
+
+";;;;;;;;;;;;;;
+30;23;29;Topic;Mantelzorgontvanger_20;Mantelzorgontvanger;Percentage personen dat mantelzorg ontvangt.;;Double;%;1;Missing;;;;;;;;;
+31;24;29;Topic;UrenOntvangenMantelzorgPerWeek_21;Uren ontvangen mantelzorg per week;Het gemiddeld aantal uren mantelzorg dat per week wordt gekregen door een mantelzorgontvanger.;;Double;aantal;1;Missing;;;;;;;;;
+Leeftijd;;;;;;;;;;;;;;;;;;;;
+Key;Title;Description;;;;;;;;;;;;;;;;;;
+10000;Totaal;Het betreft hier de bevolking van 19 jaar of ouder.;;;;;;;;;;;;;;;;;;
+53155;19 tot 65 jaar;;;;;;;;;;;;;;;;;;;
+80200;65 jaar of ouder;;;;;;;;;;;;;;;;;;;
+Marges;;;;;;;;;;;;;;;;;;;;
+Key;Title;Description;;;;;;;;;;;;;;;;;;
+MW00000;Waarde;;;;;;;;;;;;;;;;;;;
+MOG0095;Ondergrens 95%-interval;Dit is de ondergrens van het interval waarvan met 95% zekerheid verwacht wordt dat de werkelijke waarde er binnen ligt.;;;;;;;;;;;;;;;;;;
+MBG0095;Bovengrens 95%-interval;Dit is de bovengrens van het interval waarvan met 95% zekerheid verwacht wordt dat de werkelijke waarde er binnen ligt.;;;;;;;;;;;;;;;;;;
+RegioS;;;;;;;;;;;;;;;;;;;;
+Key;Title;Description;;;;;;;;;;;;;;;;;;
+NL01  ;Nederland;;;;;;;;;;;;;;;;;;;
+LD01  ;Noord-Nederland (LD);"LD = Landsdeel
+
+Noord-Nederland: Groningen, Friesland, Drenthe
+
+Regionale groepering van provincies. Nederland telt 4 landsdelen.";;;;;;;;;;;;;;;;;;
+LD02  ;Oost-Nederland (LD);"LD = Landsdeel
+
+Oost-Nederland: Overijssel, Flevoland, Gelderland
+
+Regionale groepering van provincies. Nederland telt 4 landsdelen.";;;;;;;;;;;;;;;;;;
+LD03  ;West-Nederland (LD);"LD = Landsdeel
+
+West-Nederland: Utrecht, Noord-Holland, Zuid-Holland, Zeeland
+
+Regionale groepering van provincies. Nederland telt 4 landsdelen.";;;;;;;;;;;;;;;;;;
+LD04  ;Zuid-Nederland (LD);"LD = Landsdeel
+
+Zuid-Nederland: Noord-Brabant, Limburg
+
+Regionale groepering van provincies. Nederland telt 4 landsdelen.";;;;;;;;;;;;;;;;;;
+PV20  ;Groningen (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV21  ;Friesland (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV22  ;Drenthe (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV23  ;Overijssel (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV24  ;Flevoland (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV25  ;Gelderland (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV26  ;Utrecht (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV27  ;Noord-Holland (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV28  ;Zuid-Holland (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV29  ;Zeeland (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV30  ;Noord-Brabant (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+PV31  ;Limburg (PV);"PV = Provincie
+
+Bestuurlijke onderverdeling van het Nederlands grondgebied. Sinds het
+instellen van de provincie Flevoland per 1 januari 1986 telt Nederland 12
+provincies.";;;;;;;;;;;;;;;;;;
+GM1680;Aa en Hunze;Ontstaan per 01-01-1998;;;;;;;;;;;;;;;;;;
+GM0738;Aalburg;Ontstaan per 01-01-1973;;;;;;;;;;;;;;;;;;
+GM0358;Aalsmeer;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0197;Aalten;"Gemeentelijke herindeling per 01-01-2005
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0059;Achtkarspelen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0482;Alblasserdam;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0613;Albrandswaard;Ontstaan per 01-01-1985;;;;;;;;;;;;;;;;;;
+GM0361;Alkmaar;"Gemeentelijke herindeling per 01-01-2015
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0141;Almelo;Begindatum 01-12-1913;;;;;;;;;;;;;;;;;;
+GM0034;Almere;Ontstaan per 01-01-1984;;;;;;;;;;;;;;;;;;
+GM0484;Alphen aan den Rijn;"Gemeentelijke herindeling per 01-01-2014
+Naamswijziging per 01-01-1918";;;;;;;;;;;;;;;;;;
+GM1723;Alphen-Chaam;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM0060;Ameland;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0307;Amersfoort;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0362;Amstelveen;Naamswijziging per 01-01-1964;;;;;;;;;;;;;;;;;;
+GM0363;Amsterdam;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0200;Apeldoorn;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0003;Appingedam;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0202;Arnhem;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0106;Assen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0743;Asten;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0744;Baarle-Nassau;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0308;Baarn;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0489;Barendrecht;Naamswijziging per 10-12-1886;;;;;;;;;;;;;;;;;;
+GM0203;Barneveld;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0005;Bedum;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0888;Beek (L.);Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0370;Beemster;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0889;Beesel;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0007;Bellingwedde;Ontstaan per 01-09-1968;;;;;;;;;;;;;;;;;;
+GM1945;Berg en Dal;Naamswijziging per 01-01-2016;;;;;;;;;;;;;;;;;;
+GM1724;Bergeijk;Naamswijziging per 25-09-1998;;;;;;;;;;;;;;;;;;
+GM0893;Bergen (L.);Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0373;Bergen (NH.);"Gemeentelijke herindeling per 01-01-2001
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0748;Bergen op Zoom;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1859;Berkelland;Ontstaan per 01-01-2005;;;;;;;;;;;;;;;;;;
+GM1721;Bernheze;Naamswijziging per 28-01-1995;;;;;;;;;;;;;;;;;;
+GM0753;Best;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0209;Beuningen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0375;Beverwijk;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0063;het Bildt;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0310;De Bilt;"Gemeentelijke herindeling per 01-01-2001
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0585;Binnenmaas;"Gemeentelijke herindeling per 01-01-2007
+Ontstaan per 01-01-1984";;;;;;;;;;;;;;;;;;
+GM1728;Bladel;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM0376;Blaricum;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0377;Bloemendaal;"Gemeentelijke herindeling per 01-01-2009
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1901;Bodegraven-Reeuwijk;Ontstaan per 01-01-2011;;;;;;;;;;;;;;;;;;
+GM0755;Boekel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0009;Ten Boer;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1681;Borger-Odoorn;Ontstaan per 01-01-1998;;;;;;;;;;;;;;;;;;
+GM0147;Borne;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0654;Borsele;Naamswijziging per 01-01-1970;;;;;;;;;;;;;;;;;;
+GM0756;Boxmeer;"Gemeentelijke herindeling per 01-01-1998
+Gemeentelijke herindeling per 01-01-1994
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0757;Boxtel;"Gemeentelijke herindeling per 01-01-1996
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0758;Breda;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0501;Brielle;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1876;Bronckhorst;Ontstaan per 01-01-2005;;;;;;;;;;;;;;;;;;
+GM0213;Brummen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0899;Brunssum;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0312;Bunnik;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0313;Bunschoten;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0214;Buren;"Gemeentelijke herindeling per 01-01-1999
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0502;Capelle aan den IJssel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0383;Castricum;"Gemeentelijke herindeling per 01-01-2002
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0109;Coevorden;"Gemeentelijke herindeling per 01-01-1998
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1706;Cranendonck;Naamswijziging per 28-01-1998;;;;;;;;;;;;;;;;;;
+GM0611;Cromstrijen;Ontstaan per 01-01-1984;;;;;;;;;;;;;;;;;;
+GM1684;Cuijk;Ontstaan per 01-01-1994;;;;;;;;;;;;;;;;;;
+GM0216;Culemborg;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0148;Dalfsen;"Gemeentelijke herindeling per 01-01-2001
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1891;Dantumadiel;Naamswijziging per 01-01-2009;;;;;;;;;;;;;;;;;;
+GM0503;Delft;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0010;Delfzijl;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0762;Deurne;Naamswijziging per 01-01-1926;;;;;;;;;;;;;;;;;;
+GM0150;Deventer;"Gemeentelijke herindeling per 01-01-2005
+Gemeentelijke herindeling per 01-01-1999
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0384;Diemen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1774;Dinkelland;Naamswijziging per 01-06-2002;;;;;;;;;;;;;;;;;;
+GM0221;Doesburg;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0222;Doetinchem;"Gemeentelijke herindeling per 01-01-2005
+Begindatum 01-01-1920";;;;;;;;;;;;;;;;;;
+GM0766;Dongen;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0058;Dongeradeel;Ontstaan per 01-01-1984;;;;;;;;;;;;;;;;;;
+GM0505;Dordrecht;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0498;Drechterland;"Gemeentelijke herindeling per 01-01-2006
+Naamswijziging per 01-01-1980";;;;;;;;;;;;;;;;;;
+GM1719;Drimmelen;Naamswijziging per 25-04-1998;;;;;;;;;;;;;;;;;;
+GM0303;Dronten;Ontstaan per 01-01-1972;;;;;;;;;;;;;;;;;;
+GM0225;Druten;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0226;Duiven;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1711;Echt-Susteren;Ontstaan per 01-01-2003;;;;;;;;;;;;;;;;;;
+GM0385;Edam-Volendam;"Gemeentelijke herindeling per 01-01-2016
+Naamswijziging per 01-01-1975";;;;;;;;;;;;;;;;;;
+GM0228;Ede;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0317;Eemnes;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1651;Eemsmond;Naamswijziging per 01-01-1992;;;;;;;;;;;;;;;;;;
+GM0770;Eersel;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1903;Eijsden-Margraten;Ontstaan per 01-01-2011;;;;;;;;;;;;;;;;;;
+GM0772;Eindhoven;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0230;Elburg;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0114;Emmen;"Gemeentelijke herindeling per 01-01-1998
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0388;Enkhuizen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0153;Enschede;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0232;Epe;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0233;Ermelo;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0777;Etten-Leur;Naamswijziging per 01-01-1968;;;;;;;;;;;;;;;;;;
+GM1722;Ferwerderadiel;Naamswijziging per 01-01-1999;;;;;;;;;;;;;;;;;;
+GM0070;Franekeradeel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1940;De Fryske Marren;Naamswijziging per 01-07-2015;;;;;;;;;;;;;;;;;;
+GM0779;Geertruidenberg;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0236;Geldermalsen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1771;Geldrop-Mierlo;Ontstaan per 01-01-2004;;;;;;;;;;;;;;;;;;
+GM1652;Gemert-Bakel;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM0907;Gennep;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0689;Giessenlanden;Ontstaan per 01-01-1986;;;;;;;;;;;;;;;;;;
+GM0784;Gilze en Rijen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1924;Goeree-Overflakkee;Ontstaan per 01-01-2013;;;;;;;;;;;;;;;;;;
+GM0664;Goes;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0785;Goirle;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1942;Gooise Meren;Ontstaan per 01-01-2016;;;;;;;;;;;;;;;;;;
+GM0512;Gorinchem;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0513;Gouda;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0786;Grave;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0518;'s-Gravenhage (gemeente);Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0014;Groningen (gemeente);Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0015;Grootegast;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1729;Gulpen-Wittem;Ontstaan per 01-01-1999;;;;;;;;;;;;;;;;;;
+GM0158;Haaksbergen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0788;Haaren;"Gemeentelijke herindeling per 01-01-1996
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0392;Haarlem;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0393;Haarlemmerliede en Spaarnwoude;Begindatum 13-06-1857;;;;;;;;;;;;;;;;;;
+GM0394;Haarlemmermeer;Begindatum 16-11-1855;;;;;;;;;;;;;;;;;;
+GM1655;Halderberge;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM0160;Hardenberg;"Gemeentelijke herindeling per 01-01-2001
+Ontstaan per 01-05-1941";;;;;;;;;;;;;;;;;;
+GM0243;Harderwijk;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0523;Hardinxveld-Giessendam;Ontstaan per 01-01-1957;;;;;;;;;;;;;;;;;;
+GM0017;Haren;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0072;Harlingen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0244;Hattem;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0396;Heemskerk;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0397;Heemstede;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0246;Heerde;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0074;Heerenveen;"Gemeentelijke herindeling per 01-01-2014
+Begindatum 01-07-1934";;;;;;;;;;;;;;;;;;
+GM0398;Heerhugowaard;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0917;Heerlen;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM1658;Heeze-Leende;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM0399;Heiloo;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0400;Den Helder;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0163;Hellendoorn;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0530;Hellevoetsluis;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0794;Helmond;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0531;Hendrik-Ido-Ambacht;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0164;Hengelo (O.);Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0796;'s-Hertogenbosch;"Gemeentelijke herindeling per 01-01-2015
+Gemeentelijke herindeling per 01-01-1996
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0252;Heumen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0797;Heusden;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0534;Hillegom;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0798;Hilvarenbeek;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0402;Hilversum;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1735;Hof van Twente;Ontstaan per 01-01-2001;;;;;;;;;;;;;;;;;;
+GM1911;Hollands Kroon;Ontstaan per 01-01-2012;;;;;;;;;;;;;;;;;;
+GM0118;Hoogeveen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0018;Hoogezand-Sappemeer;Ontstaan per 01-04-1949;;;;;;;;;;;;;;;;;;
+GM0405;Hoorn;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1507;Horst aan de Maas;"Gemeentelijke herindeling per 01-01-2010
+Ontstaan per 01-01-2001";;;;;;;;;;;;;;;;;;
+GM0321;Houten;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0406;Huizen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0677;Hulst;"Gemeentelijke herindeling per 01-01-2003
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0353;IJsselstein;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1884;Kaag en Braassem;Ontstaan per 01-01-2009;;;;;;;;;;;;;;;;;;
+GM0166;Kampen;"Gemeentelijke herindeling per 01-01-2001
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0678;Kapelle;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0537;Katwijk;"Gemeentelijke herindeling per 01-01-2006
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0928;Kerkrade;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM1598;Koggenland;Ontstaan per 01-01-2007;;;;;;;;;;;;;;;;;;
+GM0079;Kollumerland en Nieuwkruisland;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0588;Korendijk;Ontstaan per 01-01-1984;;;;;;;;;;;;;;;;;;
+GM0542;Krimpen aan den IJssel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1931;Krimpenerwaard;Ontstaan per 01-01-2015;;;;;;;;;;;;;;;;;;
+GM1659;Laarbeek;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM1685;Landerd;Ontstaan per 01-01-1994;;;;;;;;;;;;;;;;;;
+GM0882;Landgraaf;Ontstaan per 01-01-1982;;;;;;;;;;;;;;;;;;
+GM0415;Landsmeer;"Gemeentelijke herindeling per 01-01-1991
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0416;Langedijk;Ontstaan per 01-08-1941;;;;;;;;;;;;;;;;;;
+GM1621;Lansingerland;Ontstaan per 01-01-2007;;;;;;;;;;;;;;;;;;
+GM0417;Laren (NH.);Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0022;Leek;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0545;Leerdam;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0080;Leeuwarden;"Gemeentelijke herindeling per 01-01-2014
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0081;Leeuwarderadeel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0546;Leiden;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0547;Leiderdorp;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1916;Leidschendam-Voorburg;Ontstaan per 01-01-2002;;;;;;;;;;;;;;;;;;
+GM0995;Lelystad;Ontstaan per 01-01-1980;;;;;;;;;;;;;;;;;;
+GM1640;Leudal;Ontstaan per 01-01-2007;;;;;;;;;;;;;;;;;;
+GM0327;Leusden;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0733;Lingewaal;Naamswijziging per 03-01-1987;;;;;;;;;;;;;;;;;;
+GM1705;Lingewaard;Naamswijziging per 01-01-2003;;;;;;;;;;;;;;;;;;
+GM0553;Lisse;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0140;Littenseradiel;Naamswijziging per 26-01-1985;;;;;;;;;;;;;;;;;;
+GM0262;Lochem;"Gemeentelijke herindeling per 01-01-2005
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0809;Loon op Zand;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0331;Lopik;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0024;Loppersum;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0168;Losser;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0263;Maasdriel;"Gemeentelijke herindeling per 01-01-1999
+Naamswijziging per 01-08-1944";;;;;;;;;;;;;;;;;;
+GM1641;Maasgouw;Ontstaan per 01-01-2007;;;;;;;;;;;;;;;;;;
+GM0556;Maassluis;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0935;Maastricht;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1663;De Marne;Naamswijziging per 01-01-1992;;;;;;;;;;;;;;;;;;
+GM0025;Marum;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0420;Medemblik;"Gemeentelijke herindeling per 01-01-2011
+Gemeentelijke herindeling per 01-01-2007
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0938;Meerssen;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM1908;Menameradiel;Naamswijziging per 01-01-2011;;;;;;;;;;;;;;;;;;
+GM1987;Menterwolde;Naamswijziging per 01-02-1991;;;;;;;;;;;;;;;;;;
+GM0119;Meppel;"Gemeentelijke herindeling per 01-01-1998
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0687;Middelburg (Z.);"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1842;Midden-Delfland;Ontstaan per 01-01-2004;;;;;;;;;;;;;;;;;;
+GM1731;Midden-Drenthe;Naamswijziging per 01-01-2000;;;;;;;;;;;;;;;;;;
+GM0815;Mill en Sint Hubert;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1709;Moerdijk;Naamswijziging per 04-04-1998;;;;;;;;;;;;;;;;;;
+GM1927;Molenwaard;Ontstaan per 01-01-2013;;;;;;;;;;;;;;;;;;
+GM1955;Montferland;Ontstaan per 01-01-2005;;;;;;;;;;;;;;;;;;
+GM0335;Montfoort;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0944;Mook en Middelaar;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM1740;Neder-Betuwe;Naamswijziging per 01-04-2003;;;;;;;;;;;;;;;;;;
+GM0946;Nederweert;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0304;Neerijnen;Ontstaan per 01-01-1978;;;;;;;;;;;;;;;;;;
+GM0356;Nieuwegein;Ontstaan per 01-07-1971;;;;;;;;;;;;;;;;;;
+GM0569;Nieuwkoop;"Gemeentelijke herindeling per 01-01-2007
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0267;Nijkerk;"Gemeentelijke herindeling per 01-01-2000
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0268;Nijmegen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1930;Nissewaard;Ontstaan per 01-01-2015;;;;;;;;;;;;;;;;;;
+GM1695;Noord-Beveland;Ontstaan per 01-01-1995;;;;;;;;;;;;;;;;;;
+GM1699;Noordenveld;Ontstaan per 01-01-1998;;;;;;;;;;;;;;;;;;
+GM0171;Noordoostpolder;"Provinciale wijziging per 01-01-1986
+Naamswijziging per 01-07-1962";;;;;;;;;;;;;;;;;;
+GM0575;Noordwijk;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0576;Noordwijkerhout;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0820;Nuenen, Gerwen en Nederwetten;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0302;Nunspeet;Ontstaan per 01-01-1972;;;;;;;;;;;;;;;;;;
+GM0951;Nuth;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0579;Oegstgeest;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0823;Oirschot;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0824;Oisterwijk;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1895;Oldambt;Ontstaan per 01-01-2010;;;;;;;;;;;;;;;;;;
+GM0269;Oldebroek;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0173;Oldenzaal;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1773;Olst-Wijhe;Naamswijziging per 26-03-2002;;;;;;;;;;;;;;;;;;
+GM0175;Ommen;Begindatum 01-05-1923;;;;;;;;;;;;;;;;;;
+GM0881;Onderbanken;Ontstaan per 01-01-1982;;;;;;;;;;;;;;;;;;
+GM1586;Oost Gelre;Naamswijziging per 19-05-2006;;;;;;;;;;;;;;;;;;
+GM0826;Oosterhout;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0085;Ooststellingwerf;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0431;Oostzaan;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0432;Opmeer;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0086;Opsterland;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0828;Oss;"Gemeentelijke herindeling per 01-01-2015
+Gemeentelijke herindeling per 01-01-2011
+Gemeentelijke herindeling per 01-01-2003
+Gemeentelijke herindeling per 01-01-1994
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0584;Oud-Beijerland;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1509;Oude IJsselstreek;Ontstaan per 01-01-2005;;;;;;;;;;;;;;;;;;
+GM0437;Ouder-Amstel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0589;Oudewater;"Provinciale wijziging per 01-09-1970
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1734;Overbetuwe;Ontstaan per 01-01-2001;;;;;;;;;;;;;;;;;;
+GM0590;Papendrecht;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1894;Peel en Maas;Ontstaan per 01-01-2010;;;;;;;;;;;;;;;;;;
+GM0765;Pekela;Ontstaan per 01-01-1990;;;;;;;;;;;;;;;;;;
+GM1926;Pijnacker-Nootdorp;Ontstaan per 01-01-2002;;;;;;;;;;;;;;;;;;
+GM0439;Purmerend;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0273;Putten;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0177;Raalte;"Gemeentelijke herindeling per 01-01-2001
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0703;Reimerswaal;Ontstaan per 01-01-1970;;;;;;;;;;;;;;;;;;
+GM0274;Renkum;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0339;Renswoude;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1667;Reusel-De Mierden;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM0275;Rheden;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0340;Rhenen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0597;Ridderkerk;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0196;Rijnwaarden;Ontstaan per 01-01-1985;;;;;;;;;;;;;;;;;;
+GM1742;Rijssen-Holten;Naamswijziging per 15-03-2003;;;;;;;;;;;;;;;;;;
+GM0603;Rijswijk (ZH.);Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1669;Roerdalen;"Gemeentelijke herindeling per 01-01-2007
+Naamswijziging per 01-01-1993";;;;;;;;;;;;;;;;;;
+GM0957;Roermond;"Gemeentelijke herindeling per 01-01-2007
+Gemeentelijke herindeling per 01-01-1991
+Begindatum 02-01-1839";;;;;;;;;;;;;;;;;;
+GM0736;De Ronde Venen;"Gemeentelijke herindeling per 01-01-2011
+Ontstaan per 01-01-1989";;;;;;;;;;;;;;;;;;
+GM1674;Roosendaal;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM0599;Rotterdam;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0277;Rozendaal;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0840;Rucphen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0441;Schagen;"Gemeentelijke herindeling per 01-01-2013
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0279;Scherpenzeel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0606;Schiedam;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0088;Schiermonnikoog;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0844;Schijndel;"Opgeheven per 01-01-2017
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0962;Schinnen;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM1676;Schouwen-Duiveland;Ontstaan per 01-01-1997;;;;;;;;;;;;;;;;;;
+GM0965;Simpelveld;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM1702;Sint Anthonis;Naamswijziging per 04-07-1995;;;;;;;;;;;;;;;;;;
+GM0845;Sint-Michielsgestel;"Gemeentelijke herindeling per 01-01-1996
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0846;Sint-Oedenrode;"Opgeheven per 01-01-2017
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1883;Sittard-Geleen;Ontstaan per 01-01-2001;;;;;;;;;;;;;;;;;;
+GM0610;Sliedrecht;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0040;Slochteren;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1714;Sluis;Ontstaan per 01-01-2003;;;;;;;;;;;;;;;;;;
+GM0090;Smallingerland;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0342;Soest;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0847;Someren;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0848;Son en Breugel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0037;Stadskanaal;Ontstaan per 01-01-1969;;;;;;;;;;;;;;;;;;
+GM0180;Staphorst;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0532;Stede Broec;Ontstaan per 01-01-1979;;;;;;;;;;;;;;;;;;
+GM0851;Steenbergen;"Gemeentelijke herindeling per 01-01-1997
+Naamswijziging per 25-06-1962";;;;;;;;;;;;;;;;;;
+GM1708;Steenwijkerland;Naamswijziging per 01-01-2003;;;;;;;;;;;;;;;;;;
+GM0971;Stein (L.);Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM1904;Stichtse Vecht;Ontstaan per 01-01-2011;;;;;;;;;;;;;;;;;;
+GM0617;Strijen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1900;Súdwest-Fryslân;Ontstaan per 01-01-2011;;;;;;;;;;;;;;;;;;
+GM0715;Terneuzen;"Gemeentelijke herindeling per 01-01-2003
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0093;Terschelling;"Provinciale wijziging per 01-09-1942
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0448;Texel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1525;Teylingen;Ontstaan per 01-01-2006;;;;;;;;;;;;;;;;;;
+GM0716;Tholen;"Gemeentelijke herindeling per 01-01-1995
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0281;Tiel;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0855;Tilburg;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0183;Tubbergen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1700;Twenterand;Naamswijziging per 01-06-2002;;;;;;;;;;;;;;;;;;
+GM1730;Tynaarlo;Naamswijziging per 01-12-1999;;;;;;;;;;;;;;;;;;
+GM0737;Tytsjerksteradiel;Naamswijziging per 01-01-1989;;;;;;;;;;;;;;;;;;
+GM0856;Uden;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0450;Uitgeest;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0451;Uithoorn;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0184;Urk;"Provinciale wijziging per 01-01-1986
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0344;Utrecht (gemeente);"Gemeentelijke herindeling per 01-01-2001
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1581;Utrechtse Heuvelrug;Ontstaan per 01-01-2006;;;;;;;;;;;;;;;;;;
+GM0981;Vaals;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0994;Valkenburg aan de Geul;Ontstaan per 01-01-1982;;;;;;;;;;;;;;;;;;
+GM0858;Valkenswaard;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0047;Veendam;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0345;Veenendaal;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0717;Veere;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0860;Veghel;"Opgeheven per 01-01-2017
+Gemeentelijke herindeling per 01-01-1994
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0861;Veldhoven;Naamswijziging per 01-05-1921;;;;;;;;;;;;;;;;;;
+GM0453;Velsen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0983;Venlo;"Gemeentelijke herindeling per 01-01-2010
+Gemeentelijke herindeling per 01-01-2001
+Begindatum 02-01-1839";;;;;;;;;;;;;;;;;;
+GM0984;Venray;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0620;Vianen;"Provinciale wijziging per 01-01-2002
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0622;Vlaardingen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0048;Vlagtwedde;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0096;Vlieland;"Provinciale wijziging per 01-09-1942
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0718;Vlissingen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0986;Voerendaal;Begindatum 02-01-1839;;;;;;;;;;;;;;;;;;
+GM0626;Voorschoten;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0285;Voorst;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0865;Vught;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0866;Waalre;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0867;Waalwijk;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0627;Waddinxveen;Begindatum 01-07-1870;;;;;;;;;;;;;;;;;;
+GM0289;Wageningen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0629;Wassenaar;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0852;Waterland;Ontstaan per 01-01-1991;;;;;;;;;;;;;;;;;;
+GM0988;Weert;"Gemeentelijke herindeling per 01-01-1998
+Begindatum 02-01-1839";;;;;;;;;;;;;;;;;;
+GM0457;Weesp;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0870;Werkendam;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0668;West Maas en Waal;Naamswijziging per 01-07-1985;;;;;;;;;;;;;;;;;;
+GM1701;Westerveld;Ontstaan per 01-01-1998;;;;;;;;;;;;;;;;;;
+GM0293;Westervoort;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1783;Westland;Ontstaan per 01-01-2004;;;;;;;;;;;;;;;;;;
+GM0098;Weststellingwerf;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0614;Westvoorne;Ontstaan per 01-01-1980;;;;;;;;;;;;;;;;;;
+GM0189;Wierden;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0296;Wijchen;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1696;Wijdemeren;Ontstaan per 01-01-2002;;;;;;;;;;;;;;;;;;
+GM0352;Wijk bij Duurstede;"Gemeentelijke herindeling per 01-01-1996
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0053;Winsum;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0294;Winterswijk;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0873;Woensdrecht;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0632;Woerden;"Gemeentelijke herindeling per 01-01-2001
+Provinciale wijziging per 01-01-1989
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1690;De Wolden;Ontstaan per 01-01-1998;;;;;;;;;;;;;;;;;;
+GM0880;Wormerland;Ontstaan per 01-01-1991;;;;;;;;;;;;;;;;;;
+GM0351;Woudenberg;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0874;Woudrichem;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0479;Zaanstad;Ontstaan per 01-01-1974;;;;;;;;;;;;;;;;;;
+GM0297;Zaltbommel;"Gemeentelijke herindeling per 01-01-1999
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0473;Zandvoort;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0707;Zederik;Ontstaan per 01-01-1986;;;;;;;;;;;;;;;;;;
+GM0050;Zeewolde;Ontstaan per 01-01-1984;;;;;;;;;;;;;;;;;;
+GM0355;Zeist;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0299;Zevenaar;"Gemeentelijke herindeling per 01-01-2005
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0637;Zoetermeer;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0638;Zoeterwoude;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM0056;Zuidhorn;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GM1892;Zuidplas;Ontstaan per 01-01-2010;;;;;;;;;;;;;;;;;;
+GM0879;Zundert;"Gemeentelijke herindeling per 01-01-1997
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0301;Zutphen;"Gemeentelijke herindeling per 01-01-2005
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM1896;Zwartewaterland;Ontstaan per 01-01-2001;;;;;;;;;;;;;;;;;;
+GM0642;Zwijndrecht;"Gemeentelijke herindeling per 01-01-2003
+Begindatum voor 1830";;;;;;;;;;;;;;;;;;
+GM0193;Zwolle;Begindatum voor 1830;;;;;;;;;;;;;;;;;;
+GG0111;GGD Groningen (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG0706;GGD Drenthe (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG1009;GGD IJsselland (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG1106;GGD Regio Twente (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG1413;GGD Noord- en Oost-Gelderland (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG1911;Veiligh. en Gez. Gelderland-Midden (GG);"GG = GGD-regio
+
+Veiligheids- en Gezondheidsregio Gelderland-Midden (GG)
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG2014;GGD Gelderland-Zuid;"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG2209;GGD Flevoland (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG2514;GGD Regio Utrecht;"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG2707;GGD Hollands-Noorden (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG3109;GGD Kennemerland (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG3406;GGD Amsterdam (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG3606;GGD Gooi en Vechtstreek (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG4506;GGD Hollands-Midden (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG4607;GGD Rotterdam-Rijnmond (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG4816;Dienst Gezondheid & Jeugd ZHZ (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG5006;GGD Zeeland (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG5206;GGD West-Brabant (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG5406;GGD Hart voor Brabant (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG5608;GGD Brabant-Zuidoost (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG6011;GGD Limburg-Noord (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG6106;GGD Zuid-Limburg (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG7014;GGD Haaglanden;"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG7206;GGD Fryslân (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+GG7306;GGD Zaanstreek/Waterland (GG);"GG = GGD-regio
+
+Een in 1990 door het toenmalig Ministerie van Welzijn, Volksgezondheid en Cultuur vastgestelde indeling in samenwerkingsgebieden voor de gemeentelijke gezondheidsdiensten (GGD). Deze indeling is in de loop der jaren verschillende keren gewijzigd. De indeling is voor het laatst herzien op 1 januari 2016 en telt vanaf die datum 25 gebieden.";;;;;;;;;;;;;;;;;;
+Perioden;;;;;;;;;;;;;;;;;;;;
+Key;Title;Description;Status;;;;;;;;;;;;;;;;;
+2016JJ00;2016;;Definitief;;;;;;;;;;;;;;;;;
